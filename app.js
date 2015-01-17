@@ -42,7 +42,7 @@ app.get('/', function(req, res){
   res.render('login.ejs');
 });
 app.get('/home', routes.loggedIn, function(req,res, next){
-  res.render('home.ejs');
+  res.render('mapPartial.ejs');
 });
 app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['public_profile', 'email', 'user_friends']} ));
 app.get('/auth/facebook/callback', 

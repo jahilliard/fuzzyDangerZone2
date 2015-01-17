@@ -1,0 +1,114 @@
+@font-face {
+	font-family: Bauhaus;
+	src: url(font.ttf);
+}
+
+html {
+	background: url("../img/background.png") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+h1{
+	font-family: Bauhaus;
+	color: white;
+	font-size: 40px;
+	display: table;
+	margin: 0 auto;
+}
+
+#map-canvas{
+	height: 500px;
+}
+
+#menuIcon{
+	height: 30px;
+	float: right;
+	/*margin-top: -45px;*/
+}
+
+#shairButton {
+  -webkit-border-radius: 19;
+  -moz-border-radius: 19;
+  border-radius: 19px;
+  background: #0a1624;
+  margin-top: 15px;
+  border: solid #ffffff 4px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+#logo{
+	height: 35px;
+}
+
+nav{
+	margin-bottom: 10px;
+}
+
+#total-container{
+	margin:12px;
+}
+
+#logobutton{
+	height: 35px;
+	display: table;
+    margin: 0 auto;
+}
+
+#shairButton:hover {
+  background: #002147;
+  background-image: -webkit-linear-gradient(top, #002147, #0a1624);
+  background-image: -moz-linear-gradient(top, #002147, #0a1624);
+  background-image: -ms-linear-gradient(top, #002147, #0a1624);
+  background-image: -o-linear-gradient(top, #002147, #0a1624);
+  background-image: linear-gradient(to bottom, #002147, #0a1624);
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+/*@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+	#map-canvas{
+		height: 700px;
+	}
+	#logo{
+		height: 100px;
+	}
+	#menuIcon{
+		padding-top: 15px;
+		height: 70px;
+		float: right;
+	}
+	#logobutton{
+		height: 100px;
+   		display: table;
+	    margin: 0 auto;
+	}
+	nav{
+		margin-bottom: 30px;
+	}
+	#total-container{
+		margin:30px;
+	}
+	#shairButton {
+	  -webkit-border-radius: 38px;
+	  -moz-border-radius: 38px;
+	  border-radius: 38px;
+	  background: #0a1624;
+	  margin-top: 30px;
+	  border: solid #ffffff 8px;
+	  padding-top: 30px;
+	  padding-bottom: 30px;
+	}
+	#shairButton:hover {
+	  background: #002147;
+	  background-image: -webkit-linear-gradient(top, #002147, #0a1624);
+	  background-image: -moz-linear-gradient(top, #002147, #0a1624);
+	  background-image: -ms-linear-gradient(top, #002147, #0a1624);
+	  background-image: -o-linear-gradient(top, #002147, #0a1624);
+	  background-image: linear-gradient(to bottom, #002147, #0a1624);
+	}
+
+}*/
+

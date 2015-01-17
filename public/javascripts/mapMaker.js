@@ -50,9 +50,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
 function currMarkerMaker (initialLocation) {
     new google.maps.Marker({
                 position: initialLocation,
+                draggable:true,
+                icon: 'img/pin.png',
                 map: map,
                 animation: google.maps.Animation.DROP,
-                draggable: true,
                 title:"Current Location"
             });
 }

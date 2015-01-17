@@ -2,15 +2,13 @@
 function Pin(){
 	var latitude;
 	var longitude;
-	var vote;
-	var event_id;
+	var user_id;
 };
 
-Pin.prototype.initializePin = function(latitude, longitude, vote, event_id) {
+Pin.prototype.initializePin = function(latitude, longitude, user_id) {
   this.latitude = Number(latitude);
   this.longitude = Number(longitude);
-  this.vote = vote;
-  this.event_id = event_id;
+  this.user_id = Number(user_id);
 };
 
 module.exports = Pin;

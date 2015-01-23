@@ -206,10 +206,11 @@
   height: 25px; }
 
 html.mm-opened .mm-page {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); }
+  /*box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); */
+}
 
 .mm-menu {
-  background: #333333;
+  background: #727272;
   color: rgba(255, 255, 255, 0.6); }
   .mm-menu .mm-list > li:after {
     border-color: rgba(0, 0, 0, 0.15); }

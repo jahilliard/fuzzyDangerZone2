@@ -1,3 +1,3 @@
-$("#menuIcon").click(function () {
-	$("body").append("<p>Helllosadfasda</p>");
-})
+$(document).ready(function() {
+	$('nav#menu').mmenu();
+});

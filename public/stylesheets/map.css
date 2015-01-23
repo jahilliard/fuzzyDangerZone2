@@ -3,6 +3,14 @@
 	src: url(font.ttf);
 }
 
+#user-name{
+	font-family: Bauhaus;
+	color: white;
+	font-size: 40px;
+	display: table;
+	margin: 0 auto;
+}
+
 html {
 	background: url("../img/background.png") no-repeat center center fixed; 
 	-webkit-background-size: cover;
@@ -15,6 +23,13 @@ h1{
 	font-family: Bauhaus;
 	color: white;
 	font-size: 40px;
+	margin: auto;
+}
+
+#profile-pic{
+	border-radius: 100px;
+	height: 175px;
+	width: 175px;
 	display: table;
 	margin: 0 auto;
 }
@@ -24,9 +39,9 @@ h1{
 }
 
 #menuIcon{
-	height: 30px;
-	float: right;
-	/*margin-top: -45px;*/
+	padding-top: 8px;
+	margin-left: 11px;
+	height: 25px;
 }
 
 #shairButton {
@@ -41,7 +56,9 @@ h1{
 }
 
 #logo{
+	margin-right: 11px;
 	height: 35px;
+	float: right;
 }
 
 nav{
@@ -67,48 +84,4 @@ nav{
   background-image: linear-gradient(to bottom, #002147, #0a1624);
 }
 
-/* Smartphones (portrait and landscape) ----------- */
-/*@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-	#map-canvas{
-		height: 700px;
-	}
-	#logo{
-		height: 100px;
-	}
-	#menuIcon{
-		padding-top: 15px;
-		height: 70px;
-		float: right;
-	}
-	#logobutton{
-		height: 100px;
-   		display: table;
-	    margin: 0 auto;
-	}
-	nav{
-		margin-bottom: 30px;
-	}
-	#total-container{
-		margin:30px;
-	}
-	#shairButton {
-	  -webkit-border-radius: 38px;
-	  -moz-border-radius: 38px;
-	  border-radius: 38px;
-	  background: #0a1624;
-	  margin-top: 30px;
-	  border: solid #ffffff 8px;
-	  padding-top: 30px;
-	  padding-bottom: 30px;
-	}
-	#shairButton:hover {
-	  background: #002147;
-	  background-image: -webkit-linear-gradient(top, #002147, #0a1624);
-	  background-image: -moz-linear-gradient(top, #002147, #0a1624);
-	  background-image: -ms-linear-gradient(top, #002147, #0a1624);
-	  background-image: -o-linear-gradient(top, #002147, #0a1624);
-	  background-image: linear-gradient(to bottom, #002147, #0a1624);
-	}
-
-}*/
 

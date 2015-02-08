@@ -9,11 +9,16 @@
 	<script type="text/javascript" src="/javascripts/mapMaker.js"></script>
 	<script type="text/javascript" src="/javascripts/screensize.js"></script>
 	<script type="text/javascript" src="/javascripts/storeAjax.js"></script>
-   	<script src="javascripts/jquery.mmenu.min.js" type="text/javascript"></script>
-   	<link href="stylesheets/jquery.mmenu.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="/javascripts/fbGraphAPI.js"></script>
+   	<script src="javascripts/jquery.mmenu.min.all.js" type="text/javascript"></script>
+   	<link href="stylesheets/jquery.mmenu.all.css" type="text/css" rel="stylesheet" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/map.css">
 </head>
-<body>
+<body>   
+	<script>
+        var profileId = <%= profile.id %>;
+        var accessToken = "<%= accessToken %>";
+    </script>
 	<div>
 		<img id="logo" src="/img/weblogo.png">
 		<a href="#menu"><img id="menuIcon" src="/img/menu.png"></a>
@@ -27,11 +32,6 @@
     			<button class = "pinGetButton" id="shair">Get</button>
 		</div>
 	</div>
-	<nav id="menu">
-		<ul>
-			<img id="profile-pic" src="img/prof.jpg">
-			<li id="user-name">Justin Hilliard</li>
-		</ul>
-	</nav>
+	<% include ./menu.ejs %>
 </body>
 </html>

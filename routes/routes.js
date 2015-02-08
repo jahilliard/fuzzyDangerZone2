@@ -1,8 +1,6 @@
 var pinMod = require("../models/pins.js");
-// var eventMod = require("../models/event.js");
 var myMongo = require("../models/mymongo.js");
-// var Qs = require('qs');
-// var userMod = require('../models/user.js');
+var userMod = require('../models/user.js');
 
 exports.storePin = function(req, res){
 	var pin = new pinMod();
@@ -24,16 +22,14 @@ exports.sendPins = function(req, res){
     })
 
 }
-var currUser;
-var pin;
 
-exports.fbUserCreation = function (profile, done, accessToken){
-    console.log(String(profile._json.id));
-    currUser = profile._json.id;
-    var tempCompare = String(profile._json.id);
-    console.log("I am here whats up");
-    done(null, currUser)
-}
+// exports.fbUserCreation = function (profile, done, accessToken){
+//     console.log(String(profile._json.id));
+//     currUser = profile._json.id;
+//     var tempCompare = String(profile._json.id);
+//     console.log("I am here whats up");
+//     done(null, currUser)
+// }
 // var currUser;
 // var pin;
 // var location;
@@ -43,49 +39,50 @@ exports.fbUserCreation = function (profile, done, accessToken){
 
 
 // // Finds or creates user
-/*
-exports.findOrCreate = function (profile, done, accessToken) {
+
+exports.findOrCreate = function (profile, accessToken) {
+     var currUser;
      console.log(String(profile._json.id));
      var tempCompare = String(profile._json.id);
      myMongo.findOne('users', { "facebook.id" : tempCompare },
          function(model) {
                  currUser = model;
                  console.log(currUser);
+                 currUser = new userMod();
+                 currUser.initializeUser(profile.displayName, profile.id, profile.username, 'facebook', profile._json, accessToken);
                  if (currUser === null) {
-                     currUser = new userMod();
-                     currUser.initializeUser(profile.displayName, profile.emails[0].value, profile.username, 'facebook', profile._json, accessToken);
                      console.log(currUser);
                      myMongo.insert('users', currUser,
                                         function(model1) {
-                                            currUser = model1;
-                                             // res.render('home',{currUser: currUser});
-                                             done(null, currUser);
+                                            return model1;
                                          });
                   }   
-                 else if (currUser.facebook.id === tempCompare) {
-                   // res.render('home',{currUser: currUser});
-                   done(null, currUser);
+                 else if (currUser.fbId === tempCompare) {
+                    myMongo.update('users', { 'find' : { 'fbId' : currUser.fbId},
+                                                'update' : { '$set' : currUser} }, 
+                            function(model){console.log(model);});
+                    return currUser;
                  }
                  else {
                    return myMongo.doError("error");
                  }
          });
- }*/
+ }
 
-// exports.findInUserDB = function (user, done) {
-//     console.log(String(user.id));
-//     myMongo.findOne('users', { "facebook.id" : user.facebook.id },
-//         function(err, model) {
-//                 currUser = model;
-//                 console.log(currUser);
-//                 if (typeof currUser !== 'undefined') {
-//                   done(null, currUser);
-//                 }
-//                 else {
-//                   return myMongo.doError("error");
-//                 }
-//         });
-// }
+exports.findInUserDB = function (user) {
+    console.log(String(user.id));
+    myMongo.findOne('users', { "facebook.id" : user.facebook.id },
+        function(err, model) {
+                currUser = model;
+                console.log(currUser);
+                if (typeof currUser !== 'undefined') {
+                  done(null, currUser);
+                }
+                else {
+                  return myMongo.doError("error");
+                }
+        });
+}
 
 
 // exports.IfUInEvent = function(req, res, next) {

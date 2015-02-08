@@ -11,6 +11,25 @@
 	margin: 0 auto;
 }
 
+.mm-menu li.img:after
+{
+	margin-left: 80px !important;
+}
+.mm-menu li.img a
+{
+	font-size: 16px;
+}
+.mm-menu li.img a img
+{
+	float: left;
+	margin: -5px 10px -5px 0;
+	border-radius: 100px;
+}
+.mm-menu li.img a small
+{
+	font-size: 12px;
+}
+
 html {
 	background: url("../img/background.png") no-repeat center center fixed; 
 	-webkit-background-size: cover;

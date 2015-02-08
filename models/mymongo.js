@@ -54,6 +54,8 @@ exports.findOne = function(collection, query, callback) {
 
 // UPDATE
 exports.update = function(collection, query, callback) {
+          console.log(query.find);
+          console.log(query.update);
           mongoDB.collection(collection).update(
             JSON.parse(query.find),
             JSON.parse(query.update), {

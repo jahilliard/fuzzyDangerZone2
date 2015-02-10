@@ -60,7 +60,10 @@ exports.findOrCreate = function (profile, accessToken) {
                  else if (currUser.fbId === tempCompare) {
                     myMongo.update('users', { 'find' : { 'fbId' : currUser.fbId},
                                                 'update' : { '$set' : currUser} }, 
-                            function(model){console.log(model);});
+                            function(model){
+                                console.log("user updated");
+                                console.log(model);
+                            });
                     return currUser;
                  }
                  else {

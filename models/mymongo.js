@@ -57,12 +57,11 @@ exports.update = function(collection, query, callback) {
           console.log(query.find);
           console.log(query.update);
           mongoDB.collection(collection).update(
-            JSON.parse(query.find),
-            JSON.parse(query.update), {
-              new: true
-            }, function(err, crsr) {
+            query.find,
+            query.update,
+            function(err, crsr) {
               if (err) doError(err);
-              callback('Update succeeded');
+              callback(crsr);
         });
   }
 

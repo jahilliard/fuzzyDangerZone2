@@ -14,5 +14,15 @@ $(document).ready(function() {
               console.log(data.data);
           }
         });
+        $.ajax({
+          //creates route for pastaCreate
+          url:"https://graph.facebook.com/"+profileId+"/picture?type=large&access_token="+ accessToken,
+          type:'GET',
+          dataType: "jsonp",
+          success: function(data){
+            $('#profile-pic').attr('src', data.data.url);
+              console.log(data.data.url);
+          }
+        });
     });
 });

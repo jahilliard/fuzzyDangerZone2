@@ -6,7 +6,10 @@ var express = require('express'),
   passport = require('passport'),
   FacebookStrategy = require('passport-facebook').Strategy, 
   Oauth = require('oauth'),
-  superagent = require('superagent');
+  superagent = require('superagent'),
+  cookieParser = require('cookie-parser'),
+  bodyParser = require('body-parser'),
+  session = require('express-session');
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
 var port = process.env.OPENSHIFT_NODEJS_PORT || 50000;
 console.log("IP address: " + ipaddress);
@@ -22,6 +25,24 @@ var profileToPassToClient;
 var accessTokenPassToClient;
 
 
+// Initialize Passport!  Also use passport.session() middleware, to support
+// persistent login sessions (recommended).
+// app.use(passport.initialize());
+// app.use(passport.session('socialmap'));
+// app.use(express.cookieParser());
+// app.use(express.session({secret: 'socialmap'}));
+
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
+app.use(session({ secret: 'socialmap' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
 
 passport.use(new FacebookStrategy({
   clientID: FACEBOOK_APP_ID,
@@ -33,9 +54,10 @@ passport.use(new FacebookStrategy({
     process.nextTick(function() {
       profileToPassToClient = profile;
       accessTokenPassToClient = accessToken;
-    return done(null, profile);
-  });
+      return done(null, profile);
+    });
 }));
+
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -45,16 +67,17 @@ passport.deserializeUser(function(obj,done){
   done(null, obj); 
 });
 
+// passport.deserializeUser(function(id, done) {
+    // User.findById(id, function(err, user) {
+        // done(err, user);
+    // });
+// });
+
 
   
   app.use(morgan('dev'));
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
-  // Initialize Passport!  Also use passport.session() middleware, to support
-  // persistent login sessions (recommended).
-    app.use(passport.initialize());
-  app.use(passport.session());
-
   app.use(express.static(__dirname + '/public'));
   
 
@@ -73,7 +96,7 @@ app.get('/auth/facebook/callback',
   console.log("I'm tryign to redir to /home")
 });
 
-app.get('/home', ensureAuthenticated, function(req,res, next){
+app.get('/home', ensureAuthenticated, function(req,res,next){
   var currUser = routes.findOrCreate(profileToPassToClient, accessTokenPassToClient);
   res.render('mapPartial.ejs', {profile: profileToPassToClient,
                                 accessToken : accessTokenPassToClient});
@@ -90,7 +113,7 @@ app.listen(port, ipaddress, function() {
 
 
 function ensureAuthenticated(req, res, next) {
-  if (1) {return next();}
+  if (req.user) {return next();}
   res.redirect('/');
 }
 

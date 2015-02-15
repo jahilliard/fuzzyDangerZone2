@@ -5,10 +5,27 @@
 
 #user-name{
 	font-family: Bauhaus;
-	color: white;
+	color: gray;
 	font-size: 40px;
 	display: table;
 	margin: 0 auto;
+	padding-top: 10%;
+}
+
+#pin-set{
+  font-family: Bauhaus;
+  font-size: 40px;
+  color: green;
+  display: table;
+  margin: 0 auto;
+  padding-top: 10%;
+  padding-bottom: 10%;
+}
+
+a{
+  font-family: Bauhaus;
+  color: white;
+  font-size: 20px;
 }
 
 .mm-menu li.img:after
@@ -54,7 +71,7 @@ h1{
 }
 
 #map-canvas{
-	height: 500px;
+	height: 76vh;
 }
 
 #menuIcon{
@@ -86,6 +103,7 @@ nav{
 
 #total-container{
 	margin:12px;
+
 }
 
 #logobutton{
@@ -103,4 +121,105 @@ nav{
   background-image: linear-gradient(to bottom, #002147, #0a1624);
 }
 
+#place-pin-main { 
+  position: relative;
+	margin-top: 2vh;
+	margin-left: 2vh;
+	margin-right: 2vh;
+	border-radius: 10px;
+	height: 88vh;
+	background-color: #13232f;
+}
 
+#set-pin-header{
+	font-family: Bauhaus;
+	color: white;
+	font-size: 35px;
+	margin: 0 auto;
+	display: table;	
+}
+
+#backButton {
+  position: absolute;
+  bottom: 1vh;
+  left: 1vh;
+  background: #d93434;
+  background-image: -webkit-linear-gradient(top, #d93434, #d93434);
+  background-image: -moz-linear-gradient(top, #d93434, #d93434);
+  background-image: -ms-linear-gradient(top, #d93434, #d93434);
+  background-image: -o-linear-gradient(top, #d93434, #d93434);
+  background-image: linear-gradient(to bottom, #d93434, #d93434);
+  -webkit-border-radius: 19;
+  -moz-border-radius: 19;
+  border-radius: 19px;
+  border: solid #ffffff 4px;
+  margin-top: 15px;
+  border: solid #ffffff 4px;
+  padding: 15px;
+}
+
+#backButton:hover {
+  background: #d93434;
+  background-image: -webkit-linear-gradient(top, #d93434, #8a2121);
+  background-image: -moz-linear-gradient(top, #d93434, #8a2121);
+  background-image: -ms-linear-gradient(top, #d93434, #8a2121);
+  background-image: -o-linear-gradient(top, #d93434, #8a2121);
+  background-image: linear-gradient(to bottom, #d93434, #8a2121);
+}
+
+#setButton {
+  position: absolute;
+  bottom: 1vh;
+  right: 1vh;
+  background: #34d960;
+  background-image: -webkit-linear-gradient(top, #34d960, #34d960);
+  background-image: -moz-linear-gradient(top, #34d960, #34d960);
+  background-image: -ms-linear-gradient(top, #34d960, #34d960);
+  background-image: -o-linear-gradient(top, #34d960, #34d960);
+  background-image: linear-gradient(to bottom, #34d960, #34d960);
+  -webkit-border-radius: 19;
+  -moz-border-radius: 19;
+  border-radius: 19px;
+  border: solid #ffffff 4px;
+  margin-top: 15px;
+  border: solid #ffffff 4px;
+  padding: 15px;
+}
+
+#setButton:hover {
+  background: #34d960;
+  background-image: -webkit-linear-gradient(top, #34d960, #218c3e);
+  background-image: -moz-linear-gradient(top, #34d960, #218c3e);
+  background-image: -ms-linear-gradient(top, #34d960, #218c3e);
+  background-image: -o-linear-gradient(top, #34d960, #218c3e);
+  background-image: linear-gradient(to bottom, #34d960, #218c3e);
+}
+
+.pinInfo{
+    font-size: 20px;
+    border: 1px solid #CCC;
+    color: #888;
+    height: 30px;
+    line-height:15px;
+    margin-bottom: 16px;
+    margin-left: 5%;
+    margin-top: 2px;
+    outline: 0 none;
+    padding: 5px 0px 5px 5px;
+    width: 90%;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;    
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  }
+
+.formLabel {
+  font-size: 20px;
+  font-family: Bauhaus;
+  color: white;
+  font-size: 25px;
+  margin: 0 auto;
+  display: table;
+}

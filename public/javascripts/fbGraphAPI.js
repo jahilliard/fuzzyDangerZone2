@@ -21,8 +21,18 @@ $(document).ready(function() {
           dataType: "jsonp",
           success: function(data){
             $('#profile-pic').attr('src', data.data.url);
-              console.log(data.data.url);
           }
         });
+        $("#user-name").text(displayName);
+
+          // <li class="Label">A</li>
+          // <li class="img">
+          //   <a href="#/">
+          //     <img src="http://lorempixel.com/50/50/people/1/" />
+          //     Alan<br />
+          //     <small>Thompson</small>
+          //   </a>
+          // </li>
+
     });
 });

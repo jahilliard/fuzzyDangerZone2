@@ -48,7 +48,7 @@ function initialize() {
 google.maps.event.addDomListener(window, 'load', initialize);
 
 function currMarkerMaker (initialLocation) {
-    new google.maps.Marker({
+    var marker = new google.maps.Marker({
                 position: initialLocation,
                 draggable:true,
                 icon: 'img/pin.png',
@@ -56,4 +56,9 @@ function currMarkerMaker (initialLocation) {
                 animation: google.maps.Animation.DROP,
                 title:"Current Location"
             });
+    google.maps.event.addListener(marker,'dragend',function(event) {
+        pinLat = event.latLng.lat();
+        pinLong = event.latLng.lng();
+        console.log(pinLat, pinLong);
+    });
 }

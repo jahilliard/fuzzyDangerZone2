@@ -6,7 +6,6 @@ exports.storePin = function(req, res){
 	var pin = new pinMod();
 	pin.initializePin(req.params.pinLat, req.params.pinLong, req.params.user_id);
 	myMongo.insert('pins', pin, function(){
-		console.log(' DOLLAR huge dump');
 	});
 }
 
@@ -40,31 +39,34 @@ exports.sendPins = function(req, res){
 
 // // Finds or creates user
 
-exports.findOrCreate = function (profile, accessToken) {
+exports.findOrCreate = function (profile, accessToken, callback) {
      var currUser;
-     console.log(String(profile._json.id));
      var tempCompare = String(profile._json.id);
      myMongo.findOne('users', { "facebook.id" : tempCompare },
          function(model) {
-                 currUser = model;
-                 console.log(currUser);
                  currUser = new userMod();
-                 currUser.initializeUser(profile.displayName, profile.id, profile.username, 'facebook', profile._json, accessToken);
-                 if (currUser === null) {
-                     console.log(currUser);
-                     myMongo.insert('users', currUser,
-                                        function(model1) {
-                                            return model1;
+                 if (model === null) {
+                    currUser.initializeUser(profile.displayName, profile.id, profile.username, 'facebook', profile._json, accessToken, [], [], 
+                      function(currUser){
+                         myMongo.insert('users', currUser,
+                                        function(currUser) {
+                                            callback(currUser[0], accessToken);
                                          });
+                      });
                   }   
-                 else if (currUser.fbId === tempCompare) {
-                    myMongo.update('users', { 'find' : { 'fbId' : currUser.fbId},
-                                                'update' : { '$set' : currUser} }, 
-                            function(model){
-                                console.log("user updated");
-                                console.log(model);
-                            });
-                    return currUser;
+                 else if (model.fbId === tempCompare) {
+                    currUser.initializeUser(profile.displayName, profile.id, profile.username, 'facebook', profile._json, accessToken, model.friendsList, model.hateList,
+                          function(thisIstheUse){
+                              console.log(JSON.stringify(thisIstheUse));
+                              myMongo.update('users', { 'find' : { 'fbId' : thisIstheUse.fbId},
+                                                          'update' : { '$set' : thisIstheUse} }, 
+                                      function(thisIstheUse1){
+                                          console.log("PUSTTSDVASDGADFGSDFGSDFG" + JSON.stringify(thisIstheUse1));
+                                          console.log("user updated");
+                                          console.log(model);
+                                          callback(thisIstheUse1, accessToken);
+                                      });
+                              });
                  }
                  else {
                    return myMongo.doError("error");
@@ -183,16 +185,6 @@ exports.makePin = function(req, res, next) {
 //         callback(score);
 //     });
 // };
-
-exports.loggedIn = function(req, res, next) {
-    if (currUser) {
-        next();
-    } 
-    else { 
-        res.redirect('/');
-    }
-}
-
 
 
 // exports.ioInit = function(io) {

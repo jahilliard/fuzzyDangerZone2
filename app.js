@@ -27,11 +27,6 @@ var accessTokenPassToClient;
 
 // Initialize Passport!  Also use passport.session() middleware, to support
 // persistent login sessions (recommended).
-// app.use(passport.initialize());
-// app.use(passport.session('socialmap'));
-// app.use(express.cookieParser());
-// app.use(express.session({secret: 'socialmap'}));
-
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -79,7 +74,6 @@ passport.deserializeUser(function(obj,done){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.use(express.static(__dirname + '/public'));
-  
 
 
 app.get('/', function(req, res){
@@ -93,13 +87,14 @@ app.get('/auth/facebook/callback',
   passport.authenticate('facebook', {failureRedirect: LOGIN_PATH}),
   function(req, res){
   res.redirect('/home');
-  console.log("I'm tryign to redir to /home")
 });
 
 app.get('/home', ensureAuthenticated, function(req,res,next){
-  var currUser = routes.findOrCreate(profileToPassToClient, accessTokenPassToClient);
-  res.render('mapPartial.ejs', {profile: profileToPassToClient,
-                                accessToken : accessTokenPassToClient});
+  routes.findOrCreate(profileToPassToClient, accessTokenPassToClient, function(currUser, accessToken){
+      console.log("This is " + JSON.stringify(currUser));
+      res.render('mapPartial.ejs', {profile: currUser,
+                                    accessToken : accessToken});
+  });
 });
 
 app.post('/makePin/:pinLat/:pinLong', routes.storePin);

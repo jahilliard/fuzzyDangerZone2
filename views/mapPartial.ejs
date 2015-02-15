@@ -10,14 +10,16 @@
 	<script type="text/javascript" src="/javascripts/screensize.js"></script>
 	<script type="text/javascript" src="/javascripts/storeAjax.js"></script>
 	<script type="text/javascript" src="/javascripts/fbGraphAPI.js"></script>
+	<script type="text/javascript" src="/javascripts/multiPageHandler.js"></script>
    	<script src="javascripts/jquery.mmenu.min.all.js" type="text/javascript"></script>
    	<link href="stylesheets/jquery.mmenu.all.css" type="text/css" rel="stylesheet" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/map.css">
 </head>
 <body>   
 	<script>
-        var profileId = <%= profile.id %>;
-        var accessToken = "<%= accessToken %>";
+        var profileId = <%= profile.fbId %>;
+        var displayName = "<%= profile.name %>";
+        var accessToken = "<%=accessToken%>";
     </script>
 	<div>
 		<img id="logo" src="/img/weblogo.png">
@@ -27,9 +29,31 @@
 		<div id="main-container"> 
 			<div id="map-canvas"></div>
 			<div id="shairButton"><img id="logobutton" src="img/weblogo.png"></div>
-
-			    <button class = "pinMakerButton" id="shair">Shair</button>
-    			<button class = "pinGetButton" id="shair">Get</button>
+		</div>
+	</div>
+	<div id="place-pin-con">
+		<div id="place-pin-main">
+			<h1 id = "set-pin-header">shair your location</h1>
+			<br>
+			<br>
+			<form>
+				<h3 class = "formLabel">What are you doing?</h3>
+				<br>
+  				<input class="pinInfo" type="text">
+  				<br>
+  				<br>
+  				<h3 class = "formLabel">For how long?</h3>
+  				<br>
+  				<select class="pinInfo">
+				  <option value="1">1 hour</option>
+				  <option value="2">2 hours</option>
+				  <option value="3">3 hours</option>
+				  <option value="4">4 hours</option>
+				  <option value="5">5 hours</option>
+				</select>
+			</form>
+  			<a id="backButton">Go Back</a>
+  			<a id="setButton">Set a Location</a>
 		</div>
 	</div>
 	<% include ./menu.ejs %>

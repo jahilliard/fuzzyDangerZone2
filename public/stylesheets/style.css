@@ -9,3 +9,7 @@ body {
 #map-canvas { 
 	height: 500px;
 }
+#profile-info {
+	position: absolute;
+}
+

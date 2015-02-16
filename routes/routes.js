@@ -15,11 +15,11 @@ exports.storePin = function(req, res){
     });
 }
 
-exports.clearDb = function(){
+exports.clearPinsInDb = function(){
   setInterval(
     function(){
       var collect = "pins"
-      myMongo.find(collect, {}, function(crsr){
+      myMongo.find("pins", {}, function(crsr){
         var timeNow = Date.now();
         for (var i = crsr.length - 1; i >= 0; i--) {
           var todelete = crsr[i];
@@ -28,7 +28,9 @@ exports.clearDb = function(){
           var newTime = currDate.getTime() + todelete.timeFor * 3600000;
           console.log(todelete._id+"     "+newTime + "         " + timeNow);
           if (newTime < timeNow) {
-            myMongo.remove(collect, { "_id" : mongoId });
+            myMongo.remove("pins", { "_id" : mongoId }, function (docs){
+              console.log(docs);
+            });
           };
         };
       });

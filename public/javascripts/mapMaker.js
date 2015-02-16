@@ -8,7 +8,7 @@ var map;
 
 function initialize() {
   var myOptions = {
-    zoom: 18,
+    zoom: 17,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);

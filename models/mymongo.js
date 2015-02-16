@@ -66,8 +66,14 @@ exports.update = function(collection, query, callback) {
   }
 
 // Remove
-exports.remove = function(collection, query) {
-      mongoDB.collection(collection).remove(query);
+exports.remove = function(collection, query, callback) {
+      mongoDB.collection(collection).remove( 
+          query,
+          {safe: true},
+          function(err, docs) {
+            if (err) doError(err);
+            callback(docs);
+          });
  }
 
 var doError = function(e) {

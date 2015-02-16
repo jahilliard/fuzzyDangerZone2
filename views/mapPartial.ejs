@@ -17,7 +17,7 @@
 </head>
 <body>   
 	<script>
-        var profileId = <%= profile.fbId %>;
+        var profileId = "<%= profile.fbId %>".valueOf();
         var displayName = "<%= profile.name %>";
         var accessToken = "<%=accessToken%>";
     </script>
@@ -39,12 +39,12 @@
 			<form>
 				<h3 class = "formLabel">What are you doing?</h3>
 				<br>
-  				<input class="pinInfo" type="text">
+  				<input id="whatDoingIn" class="pinInfo" type="text">
   				<br>
   				<br>
   				<h3 class = "formLabel">For how long?</h3>
   				<br>
-  				<select class="pinInfo">
+  				<select id="timeIn" class="pinInfo">
 				  <option value="1">1 hour</option>
 				  <option value="2">2 hours</option>
 				  <option value="3">3 hours</option>

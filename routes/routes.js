@@ -4,9 +4,14 @@ var userMod = require('../models/user.js');
 
 exports.storePin = function(req, res){
 	var pin = new pinMod();
-	pin.initializePin(req.params.pinLat, req.params.pinLong, req.params.user_id);
-	myMongo.insert('pins', pin, function(){
-	});
+	pin.initializePin(req.params.pinLat, req.params.pinLong, req.query.user_id, 
+                        req.query.whatDoing, req.query.timeIn,
+    function(pin){
+	     myMongo.insert('pins', pin, function(currpin){
+        console.log(currpin);
+        res.send(currpin);
+	     });
+    });
 }
 
 // sends all the pins for now, so that we can 
@@ -57,14 +62,11 @@ exports.findOrCreate = function (profile, accessToken, callback) {
                  else if (model.fbId === tempCompare) {
                     currUser.initializeUser(profile.displayName, profile.id, profile.username, 'facebook', profile._json, accessToken, model.friendsList, model.hateList,
                           function(thisIstheUse){
-                              console.log(JSON.stringify(thisIstheUse));
+                              console.log("Poop " +JSON.stringify(thisIstheUse));
                               myMongo.update('users', { 'find' : { 'fbId' : thisIstheUse.fbId},
                                                           'update' : { '$set' : thisIstheUse} }, 
-                                      function(thisIstheUse1){
-                                          console.log("PUSTTSDVASDGADFGSDFGSDFG" + JSON.stringify(thisIstheUse1));
-                                          console.log("user updated");
-                                          console.log(model);
-                                          callback(thisIstheUse1, accessToken);
+                                      function(didSucceed){
+                                          callback(thisIstheUse, accessToken);
                                       });
                               });
                  }

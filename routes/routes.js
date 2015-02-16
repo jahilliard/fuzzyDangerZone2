@@ -15,6 +15,15 @@ exports.storePin = function(req, res){
     });
 }
 
+exports.addToFriendList = function(req, res) {
+  res.send("Hello");
+}
+
+
+exports.deleteFriendsList = function(req, res) {
+  res.send("Hello");
+}
+
 exports.clearPinsInDb = function(){
   setInterval(
     function(){
@@ -75,7 +84,8 @@ exports.findOrCreate = function (profile, accessToken, callback) {
          function(model) {
                  currUser = new userMod();
                  if (model === null) {
-                    currUser.initializeUser(profile.displayName, profile.id, profile.username, 'facebook', profile._json, accessToken, [], [], 
+                    currUser.initializeUser(profile.displayName, profile.id, profile.username, 'facebook', 
+                                                profile._json, accessToken, [], [], 
                       function(currUser){
                          myMongo.insert('users', currUser,
                                         function(currUser) {
@@ -84,9 +94,10 @@ exports.findOrCreate = function (profile, accessToken, callback) {
                       });
                   }   
                  else if (model.fbId === tempCompare) {
-                    currUser.initializeUser(profile.displayName, profile.id, profile.username, 'facebook', profile._json, accessToken, model.friendsList, model.hateList,
+                    currUser.initializeUser(profile.displayName, profile.id, profile.username, 'facebook', 
+                      profile._json, accessToken, model.friendsList, model.canSeeList,
                           function(thisIstheUse){
-                              console.log("Poop " +JSON.stringify(thisIstheUse));
+                              console.log("INITIALIZED " +JSON.stringify(thisIstheUse));
                               myMongo.update('users', { 'find' : { 'fbId' : thisIstheUse.fbId},
                                                           'update' : { '$set' : thisIstheUse} }, 
                                       function(didSucceed){
@@ -114,7 +125,6 @@ exports.findInUserDB = function (user) {
                 }
         });
 }
-
 
 // exports.IfUInEvent = function(req, res, next) {
 //     location = new locationMod();

@@ -15,11 +15,17 @@
    	<link href="stylesheets/jquery.mmenu.all.css" type="text/css" rel="stylesheet" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/map.css">
 </head>
-<body>   
+<body>
 	<script>
-        var profileId = "<%= profile.fbId %>".valueOf();
-        var displayName = "<%= profile.name %>";
-        var accessToken = "<%=accessToken%>";
+        profileId = "<%= profile.fbId %>".valueOf();
+        displayName = "<%= profile.name %>";
+        accessToken = "<%=accessToken%>";
+        friendsList = "<%= profile.friendsList.toString() %>".split(",");
+        console.log(friendsList);
+        // for (var i = friendsList.length - 1; i >= 0; i--) {
+        // 	friendsList[i] = 
+        // };
+        canSeeList = "<%= profile.canSeeList.toString(); %>".split(",");
     </script>
 	<div>
 		<img id="logo" src="/img/weblogo.png">

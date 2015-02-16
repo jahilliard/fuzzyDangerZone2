@@ -101,6 +101,10 @@ app.post('/makePin/:pinLat/:pinLong', routes.storePin);
 
 app.get('/getPins/', routes.sendPins);
 
+app.put('/addFriendsList/:profileId/:toAddId', routes.addToFriendList);
+
+app.delete('/deleteFriendsList/:profileId/:toAddId', routes.deleteFriendsList);
+
 routes.clearPinsInDb();
 
 app.listen(port, ipaddress, function() {

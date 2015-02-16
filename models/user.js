@@ -7,10 +7,10 @@ function User () {
     var facebook;
     var accessToken;
     var friendsList;
-    var hateList;
+    var canSeeList;
 }
 
-User.prototype.initializeUser = function(name, fbId, username, provider, facebook, accessToken, fList, hList, callback) {
+User.prototype.initializeUser = function(name, fbId, username, provider, facebook, accessToken, fList, csList, callback) {
     this.name = name;
     this.fbId = fbId;
     this.username = username;
@@ -18,7 +18,7 @@ User.prototype.initializeUser = function(name, fbId, username, provider, faceboo
     this.facebook = facebook;
     this.accessToken = accessToken;
     this.friendsList = fList;
-    this.hateList = hList;
+    this.canSeeList = csList;
     callback(this);
 };
 

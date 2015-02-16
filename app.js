@@ -101,6 +101,8 @@ app.post('/makePin/:pinLat/:pinLong', routes.storePin);
 
 app.get('/getPins/', routes.sendPins);
 
+routes.clearDb();
+
 app.listen(port, ipaddress, function() {
         console.log('%s: Node server started on %s:%d ...',
                         Date(Date.now() ), ipaddress, port);

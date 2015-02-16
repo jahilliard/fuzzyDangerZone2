@@ -65,6 +65,11 @@ exports.update = function(collection, query, callback) {
         });
   }
 
+// Remove
+exports.remove = function(collection, query) {
+      mongoDB.collection(collection).remove(query);
+ }
+
 var doError = function(e) {
         util.debug("ERROR: " + e);
         throw new Error(e);

@@ -1,6 +1,7 @@
 var pinMod = require("../models/pins.js");
 var myMongo = require("../models/mymongo.js");
 var userMod = require('../models/user.js');
+var ObjectID = require('mongodb').ObjectID;
 
 exports.storePin = function(req, res){
 	var pin = new pinMod();
@@ -12,6 +13,27 @@ exports.storePin = function(req, res){
         res.send(currpin);
 	     });
     });
+}
+
+exports.clearDb = function(){
+  setInterval(
+    function(){
+      var collect = "pins"
+      myMongo.find(collect, {}, function(crsr){
+        var timeNow = Date.now();
+        for (var i = crsr.length - 1; i >= 0; i--) {
+          var todelete = crsr[i];
+          var mongoId = ObjectID.ObjectId(todelete._id);
+          var currDate = mongoId.getTimestamp();
+          var newTime = currDate.getTime() + todelete.timeFor * 3600000;
+          console.log(todelete._id+"     "+newTime + "         " + timeNow);
+          if (newTime < timeNow) {
+            myMongo.remove(collect, { "_id" : mongoId });
+          };
+        };
+      });
+    }, 
+  60 * 60 * 1000);
 }
 
 // sends all the pins for now, so that we can 

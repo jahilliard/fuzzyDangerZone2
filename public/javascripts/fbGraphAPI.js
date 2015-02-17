@@ -21,8 +21,7 @@ $(document).ready(function() {
                               _menu._init( $ul );
                                   $.ajax({
                                     url:"/addFriendsList/"+profileId+"/" + currUseId,
-                                    type:'POST',
-                                    dataType: "jsonp",
+                                    type:'PUT',
                                     success: function(data){
                                       console.log("sent");
                                     }
@@ -40,7 +39,6 @@ $(document).ready(function() {
                                   $.ajax({
                                     url:"/deleteFriendsList/"+profileId+"/" + currUseId,
                                     type:'DELETE',
-                                    dataType: "jsonp",
                                     success: function(data){
                                       console.log("sent");
                                     }

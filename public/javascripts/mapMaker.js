@@ -22,8 +22,7 @@ function initialize() {
       initialLocation = new google.maps.LatLng(pinLat,pinLong);
       map.setCenter(initialLocation);
       currMarkerMaker(initialLocation);
-      storePrepare();
-      getPrepare();
+      friendMarkerMaker();
     }, function() {
       handleNoGeolocation(browserSupportFlag);
     });
@@ -61,4 +60,32 @@ function currMarkerMaker (initialLocation) {
         pinLong = event.latLng.lng();
         console.log(pinLat, pinLong);
     });
+}
+
+function friendMarkerMaker() {
+   $.ajax({
+          url:"/getShowPins/"+profileId,
+          type:'GET',
+          success: function(data){
+                  var pinsToShow = data;
+                  for (var i = pinsToShow.length - 1; i >= 0; i--) {
+                     var useCurrLocation = new google.maps.LatLng(pinsToShow[i].latitude,
+                                                                  pinsToShow[i].longitude);
+                     var whatDo = pinsToShow[i].whatDoing;
+                     $.ajax({
+                        url:"https://graph.facebook.com/"+pinsToShow[i].user_id+"/picture",
+                        type:'GET',
+                        dataType: "jsonp",
+                        success: function(picdata){
+                            new google.maps.Marker({
+                                position: useCurrLocation,
+                                icon: picdata.data.url,
+                                map: map,
+                                title: whatDo
+                            });
+                          }
+                      });
+                }
+            }
+        });
 }

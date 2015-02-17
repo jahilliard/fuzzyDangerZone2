@@ -91,7 +91,6 @@ app.get('/auth/facebook/callback',
 
 app.get('/home', ensureAuthenticated, function(req,res,next){
   routes.findOrCreate(profileToPassToClient, accessTokenPassToClient, function(currUser, accessToken){
-      console.log("This is " + JSON.stringify(currUser));
       res.render('mapPartial.ejs', {profile: currUser,
                                     accessToken : accessToken});
   });
@@ -99,11 +98,11 @@ app.get('/home', ensureAuthenticated, function(req,res,next){
 
 app.post('/makePin/:pinLat/:pinLong', routes.storePin);
 
-app.get('/getPins/', routes.sendPins);
-
 app.put('/addFriendsList/:profileId/:toAddId', routes.addToFriendList);
 
 app.delete('/deleteFriendsList/:profileId/:toAddId', routes.deleteFriendsList);
+
+app.get('/getShowPins/:user_id', routes.findPins);
 
 routes.clearPinsInDb();
 

@@ -23,7 +23,6 @@ mongoClient.connect('mongodb://'+connection_string, function(err, db) {
 
 // INSERT
 exports.insert = function(collection, query, callback) {
-        console.log("start insert");
         mongoDB.collection(collection).insert(
           query,
           {safe: true},
@@ -31,7 +30,6 @@ exports.insert = function(collection, query, callback) {
             if (err) doError(err);
             callback(crsr);
           });
-        console.log("leaving insert");
 }
 
 // FIND
@@ -46,7 +44,6 @@ exports.find = function(collection, query, callback) {
 exports.findOne = function(collection, query, callback) {
         mongoDB.collection(collection).findOne(query, function(err, docs) {
           if (err) doError(err); 
-          console.log(docs);
           callback(docs);
         });
  }
@@ -54,8 +51,6 @@ exports.findOne = function(collection, query, callback) {
 
 // UPDATE
 exports.update = function(collection, query, callback) {
-          console.log(query.find);
-          console.log(query.update);
           mongoDB.collection(collection).update(
             query.find,
             query.update,

@@ -10,7 +10,7 @@ function Pin(){
 Pin.prototype.initializePin = function(latitude, longitude, user_id, whatDoing, timeFor, callback) {
   this.latitude = Number(latitude);
   this.longitude = Number(longitude);
-  this.user_id = Number(user_id);
+  this.user_id = user_id.toString();
   this.whatDoing = whatDoing;
   this.timeFor = timeFor;
   callback(this);

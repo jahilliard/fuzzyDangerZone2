@@ -16,12 +16,99 @@ exports.storePin = function(req, res){
 }
 
 exports.addToFriendList = function(req, res) {
-  res.send("Hello");
+  var profileId = req.params.profileId;
+  var toAddId = req.params.toAddId;
+  myMongo.findOne('users', { "fbId" : profileId },
+                 function(model) {
+                  var tempArrFL = model.friendsList;
+                  tempArrFL.push(toAddId.toString());
+                  console.log(tempArrFL);
+                  myMongo.update('users', { 'find' : { 'fbId' : profileId},
+                                            'update' : { '$set' : {"friendsList": tempArrFL}}},
+                                            function(didSucceed){
+                                                console.log(didSucceed);
+                                            });
+               });
+  myMongo.findOne('users', { "fbId" : toAddId },
+                 function(model) {
+                  var tempArrCS = model.canSeeList;
+                  tempArrCS.push(profileId.toString());
+                  console.log(tempArrCS);
+                  myMongo.update('users', { 'find' : { 'fbId' : toAddId},
+                                            'update' : { '$set' : {"canSeeList": tempArrCS}}},
+                                            function(didSucceed){
+                                                console.log(didSucceed);
+                                            });
+               });
+}
+
+// exports.findPins = function(req, res){
+//   console.log("find ID" + req.params.user_id)
+//   myMongo.findOne('users', { "fbId" : req.params.user_id },
+//                  function( model) {
+//                   user = model;
+//                   var arrayOfPins; 
+//                   console.log("user is" + user);
+//                   console.log("I've gotten here");
+//                   for(var i = 0; i ++; i < user.friendsList.length()){
+//                     arrayOfPins.add(myMongo.findOne('pins',{"user_id" : user.friendsList[i]}));
+//                     console.log(myMongo.findOne('pins',{"user_id" :user.friendsList[i]}));
+//                   } 
+//                   res.send(arrayOfPins);
+//                });
+// }
+
+exports.findPins = function(req, res){
+  var user_id = req.params.user_id;
+  console.log("find ID      " + user_id)
+  myMongo.findOne('users', { "fbId" : user_id.toString() },
+                 function(model) {
+                  var user = model;
+                  var arrayOfPins = [];
+                  var canSee = user.canSeeList;
+                  for(var i = 0; i < canSee.length; i++){
+                    myMongo.findOne('pins',{"user_id" : user.canSeeList[i].toString()},
+                      function(docs){
+                        arrayOfPins.push(docs);
+                        if (i == canSee.length){
+                          res.send(arrayOfPins);
+                        }
+                      });
+                  } 
+               });
 }
 
 
 exports.deleteFriendsList = function(req, res) {
-  res.send("Hello");
+  var profileId = req.params.profileId;
+  var toAddId = req.params.toAddId;
+  myMongo.findOne('users', { "fbId" : profileId },
+                 function(model) {
+                  var tempArrFL = model.friendsList;
+                  var index = tempArrFL.indexOf(toAddId.toString());
+                  if (index > -1) {
+                     tempArrFL.splice(index, 1);
+                  }
+                  console.log(tempArrFL);
+                  myMongo.update('users', { 'find' : { 'fbId' : profileId},
+                                            'update' : { '$set' : {"friendsList": tempArrFL}}},
+                                            function(didSucceed){
+                                                console.log(didSucceed);
+                                            });
+               });
+  myMongo.findOne('users', { "fbId" : req.params.toAddId },
+                 function(model) {
+                  var tempArrCS = model.canSeeList;
+                  var index = tempArrCS.indexOf(profileId.toString());
+                  if (index > -1) {
+                     tempArrCS.splice(index, 1);
+                  }
+                  myMongo.update('users', { 'find' : { 'fbId' : toAddId},
+                                            'update' : { '$set' : {"canSeeList": tempArrCS}}},
+                                            function(didSucceed){
+                                                console.log(didSucceed);
+                                            });
+               });
 }
 
 exports.clearPinsInDb = function(){
@@ -49,16 +136,16 @@ exports.clearPinsInDb = function(){
 
 // sends all the pins for now, so that we can 
 // see all the pins on our client side map 
-exports.sendPins = function(req, res){
-    var arrayOfPins; 
-    myMongo.find('pins', {}, function(crsr){
-        //arrayOfPins = crsr.toArray();
-        console.log('Baby here');
-        console.log(crsr);
-        res.send(arrayOfPins);  
-    })
+// exports.sendPins = function(req, res){
+//     var arrayOfPins; 
+//     myMongo.find('pins', {}, function(crsr){
+//         //arrayOfPins = crsr.toArray();
+//         console.log('Baby here');
+//         console.log(crsr);
+//         res.send(arrayOfPins);  
+//     })
 
-}
+// }
 
 // exports.fbUserCreation = function (profile, done, accessToken){
 //     console.log(String(profile._json.id));
@@ -97,7 +184,6 @@ exports.findOrCreate = function (profile, accessToken, callback) {
                     currUser.initializeUser(profile.displayName, profile.id, profile.username, 'facebook', 
                       profile._json, accessToken, model.friendsList, model.canSeeList,
                           function(thisIstheUse){
-                              console.log("INITIALIZED " +JSON.stringify(thisIstheUse));
                               myMongo.update('users', { 'find' : { 'fbId' : thisIstheUse.fbId},
                                                           'update' : { '$set' : thisIstheUse} }, 
                                       function(didSucceed){

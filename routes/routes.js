@@ -4,14 +4,25 @@ var userMod = require('../models/user.js');
 var ObjectID = require('mongodb').ObjectID;
 
 exports.storePin = function(req, res){
+  var UseId = req.params.user_id.toString();
 	var pin = new pinMod();
-	pin.initializePin(req.params.pinLat, req.params.pinLong, req.query.user_id, 
+	pin.initializePin(req.params.pinLat, req.params.pinLong, req.params.user_id, 
                         req.query.whatDoing, req.query.timeIn,
     function(pin){
-	     myMongo.insert('pins', pin, function(currpin){
-        console.log(currpin);
-        res.send(currpin);
-	     });
+      myMongo.findOne('pins',{'user_id' : UseId}, function(currPin){
+        if(currPin == null){
+                 myMongo.insert('pins', pin, function(currpin){
+                   res.send(currpin);
+                  });
+        } else {
+          myMongo.remove('pins', {'user_id' : UseId}, function(didSucceed){
+                console.log(didSucceed);
+                  myMongo.insert('pins', pin, function(currpin){
+                   res.send(currpin);
+                  });
+          });
+        }
+      });
     });
 }
 

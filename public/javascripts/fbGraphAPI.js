@@ -6,7 +6,7 @@ $(document).ready(function() {
                 header    : {
                   add     : true,
                   update    : true,
-                  title   : "Contacts"
+                  title   : "Menu"
                   }
                 }).on( 'click', 'a[href^="#/"]', function() {
                           var currUseId = $(this).attr("data-userId");  

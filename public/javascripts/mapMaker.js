@@ -8,7 +8,7 @@ var map;
 
 function initialize() {
   var myOptions = {
-    zoom: 17,
+    zoom: 15,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
@@ -77,12 +77,21 @@ function friendMarkerMaker() {
                         type:'GET',
                         dataType: "jsonp",
                         success: function(picdata){
-                            new google.maps.Marker({
+                            var marker = new google.maps.Marker({
                                 position: useCurrLocation,
-                                icon: picdata.data.url,
-                                map: map,
-                                title: whatDo
+                                icon: new google.maps.MarkerImage(
+                                       picdata.data.url,
+                                       new google.maps.Size(40, 40),
+                                       new google.maps.Point(0, 0), 
+                                       new google.maps.Point(20, 20), 
+                                       new google.maps.Size(40, 40)
+                                      ),
+                                map: map
                             });
+                            var infoWindow = new google.maps.InfoWindow({ content: whatDo });
+                            google.maps.event.addListener(marker, 'click', function() {
+                                        infoWindow.open(map, marker);
+                                      });
                           }
                       });
                 }

@@ -72,6 +72,8 @@ h1{
 
 #map-canvas{
 	height: 76vh;
+  background: #081522 url(/img/weblogo.png) no-repeat 50% 50%;
+  background-size: 50vh;
 }
 
 #menuIcon{

@@ -9,7 +9,8 @@ var express = require('express'),
   superagent = require('superagent'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
-  session = require('express-session');
+  session = require('express-session'),
+  favicon = require('serve-favicon');
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
 var port = process.env.OPENSHIFT_NODEJS_PORT || 50000;
 console.log("IP address: " + ipaddress);
@@ -74,7 +75,7 @@ passport.deserializeUser(function(obj,done){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.use(express.static(__dirname + '/public'));
-
+  app.use(favicon(__dirname + '/public/img/favicon.ico'));
 
 app.get('/', function(req, res){
   res.render('login.ejs');
@@ -96,7 +97,7 @@ app.get('/home', ensureAuthenticated, function(req,res,next){
   });
 });
 
-app.post('/makePin/:pinLat/:pinLong', routes.storePin);
+app.post('/makePin/:pinLat/:pinLong/:user_id', routes.storePin);
 
 app.put('/addFriendsList/:profileId/:toAddId', routes.addToFriendList);
 

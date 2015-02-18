@@ -9,17 +9,17 @@
   </head>
   <body>
   <div>
-  	<div>
-		<img id="logo" src="/img/weblogo.png">
+		<img id="logInLogo" src="/img/weblogo.png">
 	</div>
 	<div id="total-container">
 		<div id="main-container"> 
-			<div id="shairButton"><a class= "formLabel" href="/auth/facebook">Login with Facebook</a></div>
+			<div id = "loginButton"><a class= "formLabel" id = "loginRef" href="/auth/facebook">Login with Facebook</a></div>
 		</div>
 	</div>
-
-
-
-</div>
+<script type="text/javascript">
+    document.getElementById("loginButton").onclick = function () {
+        location.href = "/auth/facebook";
+    };
+</script>
   </body>
 </html>

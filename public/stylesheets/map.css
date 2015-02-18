@@ -12,6 +12,13 @@
 	padding-top: 10%;
 }
 
+#logInLogo{
+  margin-top: -45px;
+  margin-right: 11px;
+  height: 35px;
+  float: right;
+}
+
 #pin-set{
   font-family: Bauhaus;
   font-size: 40px;
@@ -70,10 +77,29 @@ h1{
 	margin: 0 auto;
 }
 
+#loginRef{
+  text-decoration: none;
+}
+
+#loginButton{
+  -webkit-border-radius: 19;
+  -moz-border-radius: 19;
+  border-radius: 19px;
+  background: #0a1624;
+  margin-top: 50px;
+  border: solid #ffffff 4px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
 #map-canvas{
 	height: 76vh;
   background: #081522 url(/img/weblogo.png) no-repeat 50% 50%;
   background-size: 50vh;
+}
+
+#markerLayer img {
+  border-radius: 10px;
 }
 
 #menuIcon{

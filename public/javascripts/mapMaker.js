@@ -98,3 +98,11 @@ function friendMarkerMaker() {
             }
         });
 }
+
+
+
+                            // var myoverlay = new google.maps.OverlayView();
+                            //    myoverlay.draw = function () {
+                            //        this.getPanes().markerLayer.id='markerLayer';
+                            //    };
+                            // myoverlay.setMap(map);

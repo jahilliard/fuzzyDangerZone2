@@ -2,7 +2,7 @@ $(document).ready(function() {
   var $menu = $("nav#menu").mmenu({
                 classes   : "mm-light",
                 counters  : true,
-                searchfield : true,
+                // searchfield : true,
                 header    : {
                   add     : true,
                   update    : true,
@@ -62,7 +62,6 @@ $(document).ready(function() {
           type:'GET',
           dataType: "jsonp",
           success: function(data){
-            console.log(data.data[0]);
             for (var i = data.data.length - 1; i >= 0; i--) {
               var currUseId = data.data[i].id;
               var currUseName = data.data[i].name;
@@ -104,7 +103,6 @@ $(document).ready(function() {
 
 
 	$("#menuIcon").click(function(event){
-        console.log("hit");
           //to prevent default GET call
           event.preventDefault();
         $.ajax({

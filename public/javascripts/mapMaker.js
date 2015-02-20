@@ -21,8 +21,8 @@ function initialize() {
       pinLat = position.coords.latitude;
       initialLocation = new google.maps.LatLng(pinLat,pinLong);
       map.setCenter(initialLocation);
-      currMarkerMaker(initialLocation);
       friendMarkerMaker();
+      currMarkerMaker(initialLocation);
     }, function() {
       handleNoGeolocation(browserSupportFlag);
     });
@@ -58,9 +58,10 @@ function currMarkerMaker (initialLocation) {
     google.maps.event.addListener(marker,'dragend',function(event) {
         pinLat = event.latLng.lat();
         pinLong = event.latLng.lng();
-        console.log(pinLat, pinLong);
     });
 }
+
+
 
 function friendMarkerMaker() {
    $.ajax({
@@ -69,11 +70,12 @@ function friendMarkerMaker() {
           success: function(data){
                   var pinsToShow = data;
                   for (var i = pinsToShow.length - 1; i >= 0; i--) {
-                     var useCurrLocation = new google.maps.LatLng(pinsToShow[i].latitude,
-                                                                  pinsToShow[i].longitude);
-                     var whatDo = pinsToShow[i].whatDoing;
+                    (function(cntr){
+                     var useCurrLocation = new google.maps.LatLng(pinsToShow[cntr].latitude,
+                                                                  pinsToShow[cntr].longitude);
+                     var whatDo = pinsToShow[cntr].whatDoing;
                      $.ajax({
-                        url:"https://graph.facebook.com/"+pinsToShow[i].user_id+"/picture",
+                        url:"https://graph.facebook.com/"+pinsToShow[cntr].user_id+"/picture",
                         type:'GET',
                         dataType: "jsonp",
                         success: function(picdata){
@@ -94,10 +96,15 @@ function friendMarkerMaker() {
                                       });
                           }
                       });
+                  })(i);
                 }
             }
         });
 }
+
+// function placeFriendMark(){
+
+// }
 
 
 

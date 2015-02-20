@@ -42,7 +42,8 @@ exports.find = function(collection, query, callback) {
  }
 
 exports.findOne = function(collection, query, callback) {
-        mongoDB.collection(collection).findOne(query, function(err, docs) {
+        mongoDB.collection(collection).findOne(query,
+          function(err, docs) {
           if (err) doError(err); 
           callback(docs);
         });

@@ -101,7 +101,7 @@ app.put('/addFriendsList/:profileId/:toAddId', routes.addToFriendList);
 
 app.delete('/deleteFriendsList/:profileId/:toAddId', routes.deleteFriendsList);
 
-app.get('/getShowPins/:user_id', routes.findPins);
+app.get('/getShowPins/:user_id', routes.sendPins);
 
 routes.clearPinsInDb();
 

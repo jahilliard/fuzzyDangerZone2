@@ -13,9 +13,17 @@ $(document).ready(function() {
   	$("#total-container").show();
   });
   $("#setButton").click(function(event){
-  	event.preventDefault();
-  	$('#place-pin-con').hide("slow");
-  	$("#total-container").show("slow");
+    setCurrPin();
+  });
+  $('#setForm').on('submit', function () {
+    setCurrPin();
+  });
+});
+
+function setCurrPin() {
+    event.preventDefault();
+    $('#place-pin-con').hide("slow");
+    $("#total-container").show("slow");
     var doing = document.getElementById('whatDoingIn').value
     var time = document.getElementById('timeIn').value
     console.log(doing + " " + time);
@@ -53,5 +61,4 @@ $(document).ready(function() {
                       });
           }
     });
-  });
-});
+}

@@ -8,8 +8,6 @@
     <link rel="icon" type="image/png" href="/img/favicon2.png">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script type="text/javascript" src="/javascripts/mapMaker.js"></script>
-	<script type="text/javascript" src="/javascripts/screensize.js"></script>
-	<script type="text/javascript" src="/javascripts/storeAjax.js"></script>
 	<script type="text/javascript" src="/javascripts/fbGraphAPI.js"></script>
 	<script type="text/javascript" src="/javascripts/multiPageHandler.js"></script>
    	<script src="javascripts/jquery.mmenu.min.all.js" type="text/javascript"></script>
@@ -38,6 +36,7 @@
 			<h1 id = "set-pin-header">shair your location</h1>
 			<br>
 			<br>
+			<form id="setForm">
 				<h3 class = "formLabel">What are you doing?</h3>
 				<br>
   				<input id="whatDoingIn" class="pinInfo" type="text">
@@ -52,6 +51,7 @@
 				  <option value="4">4 hours</option>
 				  <option value="5">5 hours</option>
 				</select>
+			</form>
   			<a class = "pinPageButtons" id="backButton">Go Back</a>
   			<a class = "pinPageButtons" id="setButton">Set a Location</a>
 		</div>

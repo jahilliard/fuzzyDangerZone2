@@ -103,6 +103,8 @@ app.delete('/deleteFriendsList/:profileId/:toAddId', routes.deleteFriendsList);
 
 app.get('/getShowPins/:user_id', routes.sendPins);
 
+app.post('/sendBetaFeed/:profileId', routes.sendBetaFeed);
+
 routes.clearPinsInDb();
 
 app.listen(port, ipaddress, function() {

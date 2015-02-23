@@ -26,6 +26,19 @@ exports.storePin = function(req, res){
     });
 }
 
+exports.sendBetaFeed = function (req, res) {
+  console.log(req.params.profileId);
+  console.log(req.query.thisInfo);
+  var profId = req.params.profileId;
+  var thisInfo = req.query.thisInfo;
+  console.log("routes");
+  myMongo.insert('feedbacks', { "profileId": profId, 
+    "feedback" : thisInfo}, 
+    function(didSuc){
+      console.log(didSuc);
+  });
+}
+
 exports.addToFriendList = function(req, res) {
   var profileId = req.params.profileId;
   var toAddId = req.params.toAddId;

@@ -13,12 +13,32 @@ $(document).ready(function() {
   	$("#total-container").show();
   });
   $("#setButton").click(function(event){
-    setCurrPin();
+    setCurrPin(); 
   });
   $('#setForm').on('submit', function () {
     setCurrPin();
   });
+  $('#betaForm').on('submit', function (stuff) {
+    event.preventDefault();
+    console.log("submit");
+    sendBetaForm(document.getElementById('betaFeedback').value);
+    $('#betaFormId').append("<li id='successHide'><br><br>SUCCESS</li>");
+    $('#successHide').hide(1500);
+  });
 });
+
+function sendBetaForm(formFeedBack){
+  $.ajax({
+          url:"/sendBetaFeed/"+ profileId +"?thisInfo="+ formFeedBack,
+          type:'POST',
+          success : function(data){
+              console.log("data back   " + data);
+              var feedBack = document.getElementById('betaFeedback').value;
+              console.log(feedBack);
+          }
+      });
+}
+
 
 function setCurrPin() {
     event.preventDefault();

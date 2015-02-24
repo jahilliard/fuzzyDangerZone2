@@ -8,7 +8,7 @@ var map;
 
 function initialize() {
   var myOptions = {
-    zoom: 15,
+    zoom: 16,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
@@ -69,11 +69,22 @@ function friendMarkerMaker() {
           type:'GET',
           success: function(data){
                   var pinsToShow = data;
+                  var timeNow = Date.now();
                   for (var i = pinsToShow.length - 1; i >= 0; i--) {
                     (function(cntr){
                      var useCurrLocation = new google.maps.LatLng(pinsToShow[cntr].latitude,
                                                                   pinsToShow[cntr].longitude);
                      var whatDo = pinsToShow[cntr].whatDoing;
+                     var timeCreated = pinsToShow[cntr].timeCreated;
+                     var whatTime = pinsToShow[cntr].whatTime;
+                     var contentString = "not assigned";
+                     var timeToGo = (timeCreated + (whatTime*3600000)) - timeNow;
+                     if (timeToGo > 0){
+                        var howLong = Math.floor(timeToGo/360000);
+                        contentString = "In " + howLong/10 + " hour(s): " + whatDo; 
+                     } else{
+                        contentString = "Now: " + whatDo; 
+                     }
                      $.ajax({
                         url:"https://graph.facebook.com/"+pinsToShow[cntr].user_id+"/picture",
                         type:'GET',
@@ -85,12 +96,12 @@ function friendMarkerMaker() {
                                        picdata.data.url,
                                        new google.maps.Size(40, 40),
                                        new google.maps.Point(0, 0), 
-                                       new google.maps.Point(20, 20), 
+                                       new google.maps.Point(22, 22), 
                                        new google.maps.Size(40, 40)
                                       ),
                                 map: map
                             });
-                            var infoWindow = new google.maps.InfoWindow({ content: whatDo });
+                            var infoWindow = new google.maps.InfoWindow({ content: contentString });
                             google.maps.event.addListener(marker, 'click', function() {
                                         infoWindow.open(map, marker);
                                       });

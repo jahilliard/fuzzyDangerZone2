@@ -7,7 +7,7 @@ exports.storePin = function(req, res){
   var UseId = req.params.user_id.toString();
 	var pin = new pinMod();
 	pin.initializePin(req.params.pinLat, req.params.pinLong, req.params.user_id, 
-                        req.query.whatDoing, req.query.timeIn,
+                        req.query.whatDoing, req.query.timeIn, req.query.whenTime, 
     function(pin){
       myMongo.findOne('pins',{'user_id' : UseId}, function(currPin){
         if(currPin == null){
@@ -27,15 +27,12 @@ exports.storePin = function(req, res){
 }
 
 exports.sendBetaFeed = function (req, res) {
-  console.log(req.params.profileId);
-  console.log(req.query.thisInfo);
   var profId = req.params.profileId;
   var thisInfo = req.query.thisInfo;
-  console.log("routes");
   myMongo.insert('feedbacks', { "profileId": profId, 
     "feedback" : thisInfo}, 
     function(didSuc){
-      console.log(didSuc);
+      res.send(didSuc);
   });
 }
 
@@ -126,7 +123,7 @@ exports.clearPinsInDb = function(){
           var todelete = crsr[i];
           var mongoId = ObjectID.ObjectId(todelete._id);
           var currDate = mongoId.getTimestamp();
-          var newTime = currDate.getTime() + todelete.timeFor * 3600000;
+          var newTime = currDate.getTime() + (todelete.timeFor * 3600000) + (todelete.whatTime * 3600000);
           console.log(todelete._id+"     "+newTime + "         " + timeNow);
           if (newTime < timeNow) {
             myMongo.remove("pins", { "_id" : mongoId }, function (docs){

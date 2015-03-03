@@ -26,6 +26,24 @@ exports.storePin = function(req, res){
     });
 }
 
+exports.serializeUser = function(user, done) {
+      done(null, user.id);
+}
+
+exports.deserializeUser = function(user, done) {
+  myMongo.findOne('users', { "fbId" : user }, 
+    function(user1){
+        // if(!err){
+        //    console.log(" NOO err hit");
+           done(null, user1);
+        // }
+        // else {
+        //   console.log(" errr hit");
+        //   done(err, null);
+        // }
+    })
+}
+
 exports.sendBetaFeed = function (req, res) {
   var profId = req.params.profileId;
   var thisInfo = req.query.thisInfo;
@@ -44,7 +62,6 @@ exports.addToFriendList = function(req, res) {
                  if (model != null) {
                   var tempArrCS = model.canSeeList;
                   tempArrCS.push(profileId.toString());
-                  console.log(tempArrCS);
                   myMongo.update('users', { 'find' : { 'fbId' : toAddId},
                                             'update' : { '$set' : {"canSeeList": tempArrCS}}},
                   function(didSucceed){
@@ -52,7 +69,6 @@ exports.addToFriendList = function(req, res) {
                                     function(model) {
                                             var tempArrFL = model.friendsList;
                                             tempArrFL.push(toAddId.toString());
-                                            console.log(tempArrFL);
                                             myMongo.update('users', { 'find' : { 'fbId' : profileId},
                                             'update' : { '$set' : {"friendsList": tempArrFL}}},
                                             function(didSucceed){
@@ -66,13 +82,11 @@ exports.addToFriendList = function(req, res) {
 
 exports.sendPins = function(req, res){
   var user_id = req.params.user_id;
-  console.log("find ID      " + user_id);
   myMongo.findOne('users', { "fbId" : user_id.toString() },
                  function(model) {
                   var arrayOfPins = [];
                   var canSee = model.canSeeList;
                   var tempCount = 0;
-                  console.log(canSee + "   LEN    " + canSee.length);
                   myMongo.find('pins', {'user_id' : {'$in': canSee}},
                     function(crsr){
                       res.send(crsr);
@@ -101,7 +115,6 @@ exports.deleteFriendsList = function(req, res) {
                           if (index > -1) {
                              tempArrFL.splice(index, 1);
                           }
-                          console.log(tempArrFL);
                           myMongo.update('users', { 'find' : { 'fbId' : profileId},
                                             'update' : { '$set' : {"friendsList": tempArrFL}}},
                                             function(didSucceed){
@@ -124,7 +137,6 @@ exports.clearPinsInDb = function(){
           var mongoId = ObjectID.ObjectId(todelete._id);
           var currDate = mongoId.getTimestamp();
           var newTime = currDate.getTime() + (todelete.timeFor * 3600000) + (todelete.whatTime * 3600000);
-          console.log(todelete._id+"     "+newTime + "         " + timeNow);
           if (newTime < timeNow) {
             myMongo.remove("pins", { "_id" : mongoId }, function (docs){
               console.log(docs);
@@ -138,7 +150,8 @@ exports.clearPinsInDb = function(){
 
 exports.findOrCreate = function (profile, accessToken, callback) {
      var currUser;
-     var tempCompare = String(profile._json.id);
+     console.log(profile.fbId);
+     var tempCompare = profile.fbId;
      myMongo.findOne('users', { "facebook.id" : tempCompare },
          function(model) {
                  currUser = new userMod();
@@ -169,17 +182,17 @@ exports.findOrCreate = function (profile, accessToken, callback) {
          });
  }
 
-exports.findInUserDB = function (user) {
-    console.log(String(user.id));
-    myMongo.findOne('users', { "facebook.id" : user.facebook.id },
-        function(err, model) {
-                currUser = model;
-                console.log(currUser);
-                if (typeof currUser !== 'undefined') {
-                  done(null, currUser);
-                }
-                else {
-                  return myMongo.doError("error");
-                }
-        });
-}
+// exports.findInUserDB = function (user) {
+//     console.log(String(user.id));
+//     myMongo.findOne('users', { "facebook.id" : user.facebook.id },
+//         function(err, model) {
+//                 currUser = model;
+//                 console.log(currUser);
+//                 if (typeof currUser !== 'undefined') {
+//                   done(null, currUser);
+//                 }
+//                 else {
+//                   return myMongo.doError("error");
+//                 }
+//         });
+// }

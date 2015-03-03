@@ -49,6 +49,14 @@ exports.findOne = function(collection, query, callback) {
         });
  }
 
+// exports.findOneWithErr = function(collection, query, callback) {
+//         mongoDB.collection(collection).findOne(query,
+//           function(err, docs) {
+//           if (err) doError(err); 
+//           callback(err, docs);
+//         });
+//  }
+
 
 // UPDATE
 exports.update = function(collection, query, callback) {

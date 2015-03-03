@@ -5,7 +5,7 @@ var express = require('express'),
   routes = require('./routes/routes.js'),
   passport = require('passport'),
   FacebookStrategy = require('passport-facebook').Strategy, 
-  Oauth = require('oauth'),
+  // Oauth = require('oauth'),
   superagent = require('superagent'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
@@ -21,8 +21,8 @@ var FACEBOOK_APP_SECRET = "f36058491af6aa50543fce7f30be3e2d";
 var CALLBACK_URL = "http://localhost:50000/auth/facebook/callback";
 var PROFILE_FIELDS = ['id', 'name', 'gender', 'displayName','photos','profileUrl'];
 var LOGIN_PATH = '/';
-var profileToPassToClient;
-var accessTokenPassToClient;
+// var profileToPassToClient;
+// var accessTokenPassToClient;
 
 
 // Initialize Passport!  Also use passport.session() middleware, to support
@@ -32,7 +32,14 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
-app.use(session({ secret: 'socialmap' }));
+app.use(session({ secret: 'socialmap',
+  saveUninitialized: true,
+  resave: true,
+  cookie: {
+    maxAge: 3600000,
+    // secure: (config.env === 'production')
+  }
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -47,35 +54,30 @@ passport.use(new FacebookStrategy({
 },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function() {
-      profileToPassToClient = profile;
-      accessTokenPassToClient = accessToken;
+      profile['accessToken'] = accessToken;
+
+      // profileToPassToClient = profile;
+      // accessTokenPassToClient = accessToken;
       return done(null, profile);
     });
 }));
 
-
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(obj,done){
-  done(null, obj); 
-});
-
-// passport.deserializeUser(function(id, done) {
-    // User.findById(id, function(err, user) {
-        // done(err, user);
-    // });
-// });
+// app.get('*',function(req,res){  
+//   if (!req.user) {res.redirect('https://localhost:50000/login')}
+//   else {res.redirect('https://localhost:50000/home')};
+// })
 
 
+passport.serializeUser(routes.serializeUser);
+
+passport.deserializeUser(routes.deserializeUser);
   
   app.use(morgan('dev'));
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.use(express.static(__dirname + '/public'));
 
-app.get('/', function(req, res){
+app.get('/login', function(req, res){
   res.render('login.ejs');
 });
 
@@ -89,10 +91,12 @@ app.get('/auth/facebook/callback',
 });
 
 app.get('/home', ensureAuthenticated, function(req,res,next){
-  routes.findOrCreate(profileToPassToClient, accessTokenPassToClient, function(currUser, accessToken){
-      res.render('mapPartial.ejs', {profile: currUser,
+  routes.findOrCreate(req.user, req.user.accessToken, 
+    function(currUser, accessToken){
+      console.log(JSON.stringify(currUser));
+      res.render('mapPartial.ejs', {profile: req.user,
                                     accessToken : accessToken});
-  });
+    });
 });
 
 app.post('/makePin/:pinLat/:pinLong/:user_id', routes.storePin);

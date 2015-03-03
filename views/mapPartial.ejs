@@ -17,6 +17,10 @@
 </head>
 <body>
 	<script>
+		profileToShow = "<%= JSON.stringify(profile) %>";
+		console.log(profileToShow);
+		accessToken1 = "<%=accessToken%>";
+		console.log(accessToken1);
         profileId = "<%= profile.fbId %>".valueOf();
         displayName = "<%= profile.name %>";
         accessToken = "<%=accessToken%>";

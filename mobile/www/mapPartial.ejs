@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	    <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Shair</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <html manifest="app.manifest"> 
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9jcnpL3NTwG3sHftPNj93t71Hzg56MWo"></script>
+    <link rel="icon" type="image/png" href="/img/favicon2.png">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/mapMaker.js"></script>
+	<script type="text/javascript" src="/js/fbGraphAPI.js"></script>
+	<script type="text/javascript" src="/js/multiPageHandler.js"></script>
+	<script type="text/javascript" src="/js/ejs.js"></script>
+   	<script src="/js/jquery.mmenu.min.all.js" type="text/javascript"></script>
+   	<link href="/css/jquery.mmenu.all.css" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="/css/map.css">
+</head>
+<body>
+	<script>
+        profileId = "<%= profile.fbId %>".valueOf();
+        displayName = "<%= profile.name %>";
+        accessToken = "<%=accessToken%>";
+        friendsList = "<%= profile.friendsList.toString() %>".split(",");
+    </script>
+	<div>
+		<img id="logo" src="/img/weblogo.png">
+		<a href="#menu"><img id="menuIcon" src="/img/menu.png"></a>
+	</div>
+	<div id="total-container">
+		<div id="main-container"> 
+			<div id="map-canvas"></div>
+			<div id="shairButton"><img id="logobutton" src="img/weblogo.png"></div>
+		</div>
+	</div>
+	<div id="place-pin-con">
+		<div id="place-pin-main">
+			<h1 id = "set-pin-header">shair your location</h1>
+			<br>
+			<br>
+			<form id="setForm">
+				<h3 class = "formLabel">What are you doing?</h3>
+				<br>
+  				<input id="whatDoingIn" class="pinInfo" type="text">
+  				<br>
+  				<br>
+  				<h3 class = "formLabel">When?</h3>
+  				<br>
+  				<select id="whenTime" class="pinInfo">
+  				  <option value="0">Now</option>
+				  <option value="1">In 1 hour</option>
+				  <option value="2">In 2 hours</option>
+				  <option value="3">In 3 hours</option>
+				  <option value="4">In 4 hours</option>
+				  <option value="5">In 5 hours</option>
+				</select>
+  				<br>
+  				<br>
+  				<h3 class = "formLabel">For how long?</h3>
+  				<br>
+  				<select id="timeIn" class="pinInfo">
+				  <option value="1">1 hour</option>
+				  <option value="2">2 hours</option>
+				  <option value="3">3 hours</option>
+				  <option value="4">4 hours</option>
+				  <option value="5">5 hours</option>
+				</select>
+			</form>
+  			<a class = "pinPageButtons" id="backButton">Go Back</a>
+  			<a class = "pinPageButtons" id="setButton">Set a Location</a>
+		</div>
+	</div>
+	<% include ./menu.ejs %>
+</body>
+</html>

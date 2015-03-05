@@ -33,14 +33,7 @@ exports.serializeUser = function(user, done) {
 exports.deserializeUser = function(user, done) {
   myMongo.findOne('users', { "fbId" : user }, 
     function(user1){
-        // if(!err){
-        //    console.log(" NOO err hit");
            done(null, user1);
-        // }
-        // else {
-        //   console.log(" errr hit");
-        //   done(err, null);
-        // }
     })
 }
 
@@ -150,8 +143,7 @@ exports.clearPinsInDb = function(){
 
 exports.findOrCreate = function (profile, accessToken, callback) {
      var currUser;
-     console.log(profile.fbId);
-     var tempCompare = profile.fbId;
+     var tempCompare = profile.id;
      myMongo.findOne('users', { "facebook.id" : tempCompare },
          function(model) {
                  currUser = new userMod();
@@ -181,18 +173,3 @@ exports.findOrCreate = function (profile, accessToken, callback) {
                  }
          });
  }
-
-// exports.findInUserDB = function (user) {
-//     console.log(String(user.id));
-//     myMongo.findOne('users', { "facebook.id" : user.facebook.id },
-//         function(err, model) {
-//                 currUser = model;
-//                 console.log(currUser);
-//                 if (typeof currUser !== 'undefined') {
-//                   done(null, currUser);
-//                 }
-//                 else {
-//                   return myMongo.doError("error");
-//                 }
-//         });
-// }

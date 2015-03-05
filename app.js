@@ -5,7 +5,7 @@ var express = require('express'),
   routes = require('./routes/routes.js'),
   passport = require('passport'),
   FacebookStrategy = require('passport-facebook').Strategy, 
-  // Oauth = require('oauth'),
+  // Oauth = require('oauth'),  NOT SURE WHY THIS IS
   superagent = require('superagent'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
@@ -20,9 +20,8 @@ var FACEBOOK_APP_ID = "1545248059049486";
 var FACEBOOK_APP_SECRET = "f36058491af6aa50543fce7f30be3e2d";
 var CALLBACK_URL = "http://localhost:50000/auth/facebook/callback";
 var PROFILE_FIELDS = ['id', 'name', 'gender', 'displayName','photos','profileUrl'];
-var LOGIN_PATH = '/';
-// var profileToPassToClient;
-// var accessTokenPassToClient;
+var SUCCESS_LOGIN_PATH = '/home';
+var FAIL_LOGIN_PATH = '/';
 
 
 // Initialize Passport!  Also use passport.session() middleware, to support
@@ -36,7 +35,7 @@ app.use(session({ secret: 'socialmap',
   saveUninitialized: true,
   resave: true,
   cookie: {
-    maxAge: 3600000,
+    maxAge: (3600000 * 2),
     // secure: (config.env === 'production')
   }
 }));
@@ -55,9 +54,10 @@ passport.use(new FacebookStrategy({
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function() {
       profile['accessToken'] = accessToken;
-
-      // profileToPassToClient = profile;
-      // accessTokenPassToClient = accessToken;
+      routes.findOrCreate(profile, accessToken, 
+        function(currUser, accessToken){
+          console.log("THIS WAS STORED " + JSON.stringify(currUser));
+      });
       return done(null, profile);
     });
 }));
@@ -77,7 +77,7 @@ passport.deserializeUser(routes.deserializeUser);
   app.set('view engine', 'ejs');
   app.use(express.static(__dirname + '/public'));
 
-app.get('/login', function(req, res){
+app.get(FAIL_LOGIN_PATH, function(req, res){
   res.render('login.ejs');
 });
 
@@ -85,18 +85,12 @@ app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['public_pro
 
 
 app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', {failureRedirect: LOGIN_PATH}),
-  function(req, res){
-  res.redirect('/home');
-});
+  passport.authenticate('facebook', { successRedirect: SUCCESS_LOGIN_PATH,
+                                      failureRedirect: FAIL_LOGIN_PATH}));
 
-app.get('/home', ensureAuthenticated, function(req,res,next){
-  routes.findOrCreate(req.user, req.user.accessToken, 
-    function(currUser, accessToken){
-      console.log(JSON.stringify(currUser));
-      res.render('mapPartial.ejs', {profile: req.user,
-                                    accessToken : accessToken});
-    });
+app.get(SUCCESS_LOGIN_PATH, ensureAuthenticated, function(req,res,next){
+  res.render('mapPartial.ejs', {profile: req.user,
+                                    accessToken : req.user.accessToken});
 });
 
 app.post('/makePin/:pinLat/:pinLong/:user_id', routes.storePin);
@@ -119,7 +113,7 @@ app.listen(port, ipaddress, function() {
 
 function ensureAuthenticated(req, res, next) {
   if (req.user) {return next();}
-  res.redirect('/');
+  res.redirect(FAIL_LOGIN_PATH);
 }
 
 

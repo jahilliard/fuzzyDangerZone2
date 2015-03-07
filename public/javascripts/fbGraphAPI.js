@@ -62,7 +62,8 @@ $(document).ready(function() {
           type:'GET',
           dataType: "jsonp",
           success: function(data){
-            for (var i = data.data.length - 1; i >= 0; i--) {
+            for (var j = data.data.length - 1; j >= 0; j--) {
+              (function(i){
               var currUseId = data.data[i].id;
               var currUseName = data.data[i].name;
               $.ajax({
@@ -94,7 +95,8 @@ $(document).ready(function() {
                     }
                   }
                   }
-              });
+                });
+              })(j)
             }
           }
         });

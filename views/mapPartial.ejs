@@ -12,15 +12,12 @@
 	<script type="text/javascript" src="/javascripts/fbGraphAPI.js"></script>
 	<script type="text/javascript" src="/javascripts/multiPageHandler.js"></script>
    	<script src="javascripts/jquery.mmenu.min.all.js" type="text/javascript"></script>
+   	<script src="https://google-maps-utility-library-v3.googlecode.com/svn-history/r391/trunk/markerwithlabel/src/markerwithlabel.js" type="text/javascript"></script>
    	<link href="stylesheets/jquery.mmenu.all.css" type="text/css" rel="stylesheet" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/map.css">
 </head>
 <body>
 	<script>
-		profileToShow = "<%= JSON.stringify(profile) %>";
-		console.log(profileToShow);
-		accessToken1 = "<%=accessToken%>";
-		console.log(accessToken1);
         profileId = "<%= profile.fbId %>".valueOf();
         displayName = "<%= profile.name %>";
         accessToken = "<%=accessToken%>";
@@ -32,7 +29,15 @@
 	</div>
 	<div id="total-container">
 		<div id="main-container"> 
-			<div id="map-canvas"></div>
+			<div id="notifications"></div>
+			<div id="shairs-updates-container">
+				<div id="shairList-shairs">
+					<h1 id = "set-pin-header">Current Shairs</h1>
+					<ul id = "most-recent-shairs">
+					</ul>
+				</div>
+				<div id="map-canvas"></div>
+			</div>
 			<div id="shairButton"><img id="logobutton" src="img/weblogo.png"></div>
 		</div>
 	</div>

@@ -1,8 +1,7 @@
-var initialLocation;
 var pinLong;
 var pinLat;
 var siberia = new google.maps.LatLng(60, 105);
-var newyork = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
+var newyork = new google.maps.LatLng(40.4433,  79.9436);
 var browserSupportFlag =  new Boolean();
 var map;
 
@@ -44,7 +43,27 @@ function initialize() {
     map.setCenter(initialLocation);
   }
 }
+
+function setAllMap(map, callback) {
+  for (var i = 0; i < markerArr.length; i++) {
+    markerArr[i].setMap(map);
+  }
+  callback();
+}
+
 google.maps.event.addDomListener(window, 'load', initialize);
+
+setInterval( 
+  function(){
+      setAllMap(null, function(){
+          $("#most-recent-shairs").html('');
+          markerArr = [];
+          friendMarkerMaker();
+      });
+  },
+  60 * 10 * 1000);
+
+var markerArr = []
 
 function currMarkerMaker (initialLocation) {
     var marker = new google.maps.Marker({
@@ -59,9 +78,8 @@ function currMarkerMaker (initialLocation) {
         pinLat = event.latLng.lat();
         pinLong = event.latLng.lng();
     });
+
 }
-
-
 
 function friendMarkerMaker() {
    $.ajax({
@@ -90,7 +108,10 @@ function friendMarkerMaker() {
                         type:'GET',
                         dataType: "jsonp",
                         success: function(picdata){
-                            var marker = new google.maps.Marker({
+                            var toAppend = "<li class='recentShair'><img id='recentImg' src='" + picdata.data.url + 
+                                      "' /><div id='contentStuff'>" + contentString + "</div></li>";
+                            $("#most-recent-shairs").append(toAppend);
+                            var marker = new MarkerWithLabel({
                                 position: useCurrLocation,
                                 icon: new google.maps.MarkerImage(
                                        picdata.data.url,
@@ -99,12 +120,16 @@ function friendMarkerMaker() {
                                        new google.maps.Point(22, 22), 
                                        new google.maps.Size(40, 40)
                                       ),
-                                map: map
+                                map: map, 
+                                labelClass: "labels",
+                                'fbId' : pinsToShow[cntr].user_id
                             });
                             var infoWindow = new google.maps.InfoWindow({ content: contentString });
                             google.maps.event.addListener(marker, 'click', function() {
                                         infoWindow.open(map, marker);
                                       });
+                            markerArr.push(infoWindow);
+                            markerArr.push(marker);
                           }
                       });
                   })(i);
@@ -116,8 +141,6 @@ function friendMarkerMaker() {
 // function placeFriendMark(){
 
 // }
-
-
 
                             // var myoverlay = new google.maps.OverlayView();
                             //    myoverlay.draw = function () {

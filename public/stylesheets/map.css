@@ -3,251 +3,292 @@
 	src: url(font.ttf);
 }
 
-#user-name{
-	font-family: Bauhaus;
-	color: gray;
-	font-size: 40px;
-	display: table;
-	margin: 0 auto;
-	padding-top: 10%;
-}
 
-#logInLogo{
-  margin-top: -45px;
-  margin-right: 11px;
-  height: 35px;
-  float: right;
-}
-
-#pin-set{
-  font-family: Bauhaus;
-  font-size: 40px;
-  color: green;
-  display: table;
-  margin: 0 auto;
-  padding-top: 10%;
-  padding-bottom: 10%;
-}
-
-.pinPageButtons{
-  font-family: Bauhaus;
-  color: white;
-  font-size: 20px;
-}
-
-.mm-menu li.img:after
-{
-	margin-left: 80px !important;
-}
-.mm-menu li.img a
-{
-	font-size: 16px;
-}
-.mm-menu li.img a img
-{
-	float: left;
-	margin: -5px 10px -5px 0;
-	border-radius: 100px;
-}
-.mm-menu li.img a small
-{
-	font-size: 12px;
-}
-
-html {
-	background: url("../img/background.png") no-repeat center center fixed; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-}
-
-h1{
-	font-family: Bauhaus;
-	color: white;
-	font-size: 40px;
-	margin: auto;
-}
-
-#profile-pic{
-	border-radius: 100px;
-	height: 175px;
-	width: 175px;
-	display: table;
-	margin: 0 auto;
-}
-
-#loginRef{
-  text-decoration: none;
-}
-
-#loginButton{
-  -webkit-border-radius: 19;
-  -moz-border-radius: 19;
-  border-radius: 19px;
-  background: #0a1624;
-  margin-top: 50px;
-  border: solid #ffffff 4px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-
-#map-canvas{
-	height: 76vh;
-  background: #081522 url(/img/weblogo.png) no-repeat 50% 50%;
-  background-size: 50vh;
-}
-
-#markerLayer img {
-  border-radius: 10px;
-}
-
-#menuIcon{
-	padding-top: 8px;
-	margin-left: 11px;
-	height: 25px;
-}
-
-#shairButton {
-  -webkit-border-radius: 19;
-  -moz-border-radius: 19;
-  border-radius: 19px;
-  background: #0a1624;
-  margin-top: 15px;
-  border: solid #ffffff 4px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-
-#logo{
-	margin-right: 11px;
-	height: 35px;
-	float: right;
-}
-
-nav{
-	margin-bottom: 10px;
-}
-
-#total-container{
-	margin:12px;
-
-}
-
-#logobutton{
-	height: 35px;
-	display: table;
+/*@media only screen and (min-width : 768px) {*/
+  #user-name{
+  	font-family: Bauhaus;
+  	color: gray;
+  	font-size: 40px;
+  	display: table;
+  	margin: 0 auto;
+  	padding-top: 10%;
+  }
+  
+  #logInLogo{
+    margin-top: -45px;
+    margin-right: 11px;
+    height: 35px;
+    float: right;
+  }
+  
+  #pin-set{
+    font-family: Bauhaus;
+    font-size: 40px;
+    color: green;
+    display: table;
     margin: 0 auto;
-}
-
-#shairButton:hover {
-  background: #002147;
-  background-image: -webkit-linear-gradient(top, #002147, #0a1624);
-  background-image: -moz-linear-gradient(top, #002147, #0a1624);
-  background-image: -ms-linear-gradient(top, #002147, #0a1624);
-  background-image: -o-linear-gradient(top, #002147, #0a1624);
-  background-image: linear-gradient(to bottom, #002147, #0a1624);
-}
-
-#place-pin-main { 
-  position: relative;
-	margin-top: 2vh;
-	margin-left: 2vh;
-	margin-right: 2vh;
-	border-radius: 10px;
-	height: 88vh;
-	background-color: #13232f;
-}
-
-#set-pin-header{
-	font-family: Bauhaus;
-	color: white;
-	font-size: 35px;
-	margin: 0 auto;
-	display: table;	
-}
-
-#backButton {
-  position: absolute;
-  bottom: 1vh;
-  left: 1vh;
-  background: #d93434;
-  background-image: -webkit-linear-gradient(top, #d93434, #d93434);
-  background-image: -moz-linear-gradient(top, #d93434, #d93434);
-  background-image: -ms-linear-gradient(top, #d93434, #d93434);
-  background-image: -o-linear-gradient(top, #d93434, #d93434);
-  background-image: linear-gradient(to bottom, #d93434, #d93434);
-  -webkit-border-radius: 19;
-  -moz-border-radius: 19;
-  border-radius: 19px;
-  border: solid #ffffff 4px;
-  margin-top: 15px;
-  border: solid #ffffff 4px;
-  padding: 15px;
-}
-
-#backButton:hover {
-  background: #d93434;
-  background-image: -webkit-linear-gradient(top, #d93434, #8a2121);
-  background-image: -moz-linear-gradient(top, #d93434, #8a2121);
-  background-image: -ms-linear-gradient(top, #d93434, #8a2121);
-  background-image: -o-linear-gradient(top, #d93434, #8a2121);
-  background-image: linear-gradient(to bottom, #d93434, #8a2121);
-}
-
-#setButton {
-  position: absolute;
-  bottom: 1vh;
-  right: 1vh;
-  background: #34d960;
-  background-image: -webkit-linear-gradient(top, #34d960, #34d960);
-  background-image: -moz-linear-gradient(top, #34d960, #34d960);
-  background-image: -ms-linear-gradient(top, #34d960, #34d960);
-  background-image: -o-linear-gradient(top, #34d960, #34d960);
-  background-image: linear-gradient(to bottom, #34d960, #34d960);
-  -webkit-border-radius: 19;
-  -moz-border-radius: 19;
-  border-radius: 19px;
-  border: solid #ffffff 4px;
-  margin-top: 15px;
-  border: solid #ffffff 4px;
-  padding: 15px;
-}
-
-#setButton:hover {
-  background: #34d960;
-  background-image: -webkit-linear-gradient(top, #34d960, #218c3e);
-  background-image: -moz-linear-gradient(top, #34d960, #218c3e);
-  background-image: -ms-linear-gradient(top, #34d960, #218c3e);
-  background-image: -o-linear-gradient(top, #34d960, #218c3e);
-  background-image: linear-gradient(to bottom, #34d960, #218c3e);
-}
-
-.pinInfo{
+    padding-top: 10%;
+    padding-bottom: 10%;
+  }
+  
+  .pinPageButtons{
+    font-family: Bauhaus;
+    color: white;
     font-size: 20px;
-    border: 1px solid #CCC;
-    color: #888;
-    height: 30px;
-    line-height:15px;
-    margin-bottom: 16px;
-    margin-left: 5%;
-    margin-top: 2px;
-    outline: 0 none;
-    padding: 5px 0px 5px 5px;
-    width: 90%;
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;    
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  }
+  
+  .mm-menu li.img:after
+  {
+  	margin-left: 80px !important;
+  }
+  .mm-menu li.img a
+  {
+  	font-size: 16px;
+  }
+  .mm-menu li.img a img
+  {
+  	float: left;
+  	margin: -5px 10px -5px 0;
+  	border-radius: 100px;
+  }
+  .mm-menu li.img a small
+  {
+  	font-size: 12px;
+  }
+  
+  html {
+  	background: url("../img/background.png") no-repeat center center fixed; 
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+  }
+  
+  h1{
+  	font-family: Bauhaus;
+  	color: white;
+  	font-size: 40px;
+  	margin: auto;
+  }
+  
+  #profile-pic{
+  	border-radius: 100px;
+  	height: 175px;
+  	width: 175px;
+  	display: table;
+  	margin: 0 auto;
+  }
+  
+  #loginRef{
+    text-decoration: none;
+  }
+  
+  #loginButton{
+    -webkit-border-radius: 19;
+    -moz-border-radius: 19;
+    border-radius: 19px;
+    background: #0a1624;
+    margin-top: 50px;
+    border: solid #ffffff 4px;
+    padding-top: 15px;
+    padding-bottom: 15px;
   }
 
-.formLabel {
-  font-size: 20px;
-  font-family: Bauhaus;
-  color: white;
-  font-size: 25px;
-  margin: 0 auto;
-  display: table;
-}
+  #shairs-updates-container{
+    position: relative;
+    margin-left: 5px;
+    padding-bottom: 10px;
+    height: 73.2vh;
+  }
+
+  #shairList-shairs{
+    border-radius: 10px;
+    float: right;
+    height: 73.2vh;
+    width: 38.5%;
+    background-color: #081522;
+    overflow-y:auto
+  }
+  
+  #map-canvas{
+    border-radius: 10px;
+    height: 73.2vh;
+    width: 60.5%;
+    background: #081522 url(/img/weblogo.png) no-repeat 50% 50%;
+    background-size: 50vh;
+  }
+  
+  #markerLayer img {
+    border-radius: 10px;
+  }
+  
+  #menuIcon{
+  	padding-top: 8px;
+  	margin-left: 11px;
+  	height: 25px;
+  }
+  
+  #shairButton {
+    -webkit-border-radius: 19;
+    -moz-border-radius: 19;
+    border-radius: 19px;
+    background: #0a1624;
+    margin-top: 15px;
+    border: solid #ffffff 4px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  
+  #logo{
+  	margin-right: 11px;
+  	height: 35px;
+  	float: right;
+  }
+  
+  nav{
+  	margin-bottom: 10px;
+  }
+  
+  #total-container{
+  	margin:12px;
+  
+  }
+  
+  #logobutton{
+  	height: 35px;
+  	display: table;
+      margin: 0 auto;
+  }
+  
+  #shairButton:hover {
+    background: #002147;
+    background-image: -webkit-linear-gradient(top, #002147, #0a1624);
+    background-image: -moz-linear-gradient(top, #002147, #0a1624);
+    background-image: -ms-linear-gradient(top, #002147, #0a1624);
+    background-image: -o-linear-gradient(top, #002147, #0a1624);
+    background-image: linear-gradient(to bottom, #002147, #0a1624);
+  }
+  
+  #place-pin-main { 
+    position: relative;
+  	margin-top: 2vh;
+  	margin-left: 2vh;
+  	margin-right: 2vh;
+  	border-radius: 10px;
+  	height: 88vh;
+  	background-color: #13232f;
+  }
+  
+  #set-pin-header{
+  	font-family: Bauhaus;
+    text-decoration: underline;
+  	color: white;
+  	font-size: 35px;
+  	margin: 0 auto;
+  	display: table;	
+  }
+  
+  #backButton {
+    position: absolute;
+    bottom: 1vh;
+    left: 1vh;
+    background: #d93434;
+    background-image: -webkit-linear-gradient(top, #d93434, #d93434);
+    background-image: -moz-linear-gradient(top, #d93434, #d93434);
+    background-image: -ms-linear-gradient(top, #d93434, #d93434);
+    background-image: -o-linear-gradient(top, #d93434, #d93434);
+    background-image: linear-gradient(to bottom, #d93434, #d93434);
+    -webkit-border-radius: 19;
+    -moz-border-radius: 19;
+    border-radius: 19px;
+    border: solid #ffffff 4px;
+    margin-top: 15px;
+    border: solid #ffffff 4px;
+    padding: 15px;
+  }
+  
+  #backButton:hover {
+    background: #d93434;
+    background-image: -webkit-linear-gradient(top, #d93434, #8a2121);
+    background-image: -moz-linear-gradient(top, #d93434, #8a2121);
+    background-image: -ms-linear-gradient(top, #d93434, #8a2121);
+    background-image: -o-linear-gradient(top, #d93434, #8a2121);
+    background-image: linear-gradient(to bottom, #d93434, #8a2121);
+  }
+  
+  #setButton {
+    position: absolute;
+    bottom: 1vh;
+    right: 1vh;
+    background: #34d960;
+    background-image: -webkit-linear-gradient(top, #34d960, #34d960);
+    background-image: -moz-linear-gradient(top, #34d960, #34d960);
+    background-image: -ms-linear-gradient(top, #34d960, #34d960);
+    background-image: -o-linear-gradient(top, #34d960, #34d960);
+    background-image: linear-gradient(to bottom, #34d960, #34d960);
+    -webkit-border-radius: 19;
+    -moz-border-radius: 19;
+    border-radius: 19px;
+    border: solid #ffffff 4px;
+    margin-top: 15px;
+    border: solid #ffffff 4px;
+    padding: 15px;
+  }
+  
+  #setButton:hover {
+    background: #34d960;
+    background-image: -webkit-linear-gradient(top, #34d960, #218c3e);
+    background-image: -moz-linear-gradient(top, #34d960, #218c3e);
+    background-image: -ms-linear-gradient(top, #34d960, #218c3e);
+    background-image: -o-linear-gradient(top, #34d960, #218c3e);
+    background-image: linear-gradient(to bottom, #34d960, #218c3e);
+  }
+  
+  .pinInfo{
+      font-size: 20px;
+      border: 1px solid #CCC;
+      color: #888;
+      height: 30px;
+      line-height:15px;
+      margin-bottom: 16px;
+      margin-left: 5%;
+      margin-top: 2px;
+      outline: 0 none;
+      padding-right: 5px;
+      padding-left: 5px;
+      width: 90%;
+      border-radius: 4px;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;    
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    }
+
+  .recentShair{
+    list-style-type: none;
+    clear: both;
+  }
+
+  #recentImg{
+    float: left;
+    border-radius: 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }
+
+  #contentStuff{
+    font-size: 20px;
+    font-family: Bauhaus;
+    color: white;
+  }
+  
+  .formLabel {
+    font-size: 20px;
+    font-family: Bauhaus;
+    color: white;
+    font-size: 25px;
+    margin: 0 auto;
+    display: table;
+  }
+/*}*/

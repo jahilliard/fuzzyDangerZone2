@@ -13,10 +13,10 @@ $(document).ready(function() {
   	$("#total-container").show();
   });
   $("#setButton").click(function(event){
-    setCurrPin(); 
+    deletePrevMarker(profileId, setCurrPin); 
   });
   $('#setForm').on('submit', function () {
-    setCurrPin();
+    deletePrevMarker(profileId, setCurrPin);
   });
   $('#betaForm').on('submit', function (stuff) {
     event.preventDefault();
@@ -31,6 +31,17 @@ function sendBetaForm(formFeedBack){
           url:"/sendBetaFeed/"+ profileId +"?thisInfo="+ formFeedBack,
           type:'POST'
       });
+}
+
+function deletePrevMarker(markerId, callback) {
+
+  for (var i = 0; i < markerArr.length; i++) {
+    if (markerArr[i].fbId == markerId){
+       markerArr[i].setMap(null);
+       markerArr.splice(i,1);
+    }
+  }
+  callback();
 }
 
 
@@ -63,6 +74,9 @@ function setCurrPin() {
                         type:'GET',
                         dataType: "jsonp",
                         success: function(picdata){
+                            var toAppend = "<li class='recentShair'><img id='recentImg' src='" + picdata.data.url + 
+                                      "' /><div id='contentStuff'>" + contentString + "</div></li>";
+                            $("#most-recent-shairs").append(toAppend);
                             var marker = new google.maps.Marker({
                                 position: useCurrLocation,
                                 icon: new google.maps.MarkerImage(
@@ -72,12 +86,15 @@ function setCurrPin() {
                                        new google.maps.Point(20, 20), 
                                        new google.maps.Size(40, 40)
                                       ),
-                                map: map
+                                map: map,
+                                "fbId" : profileId
                             });
                             var infoWindow = new google.maps.InfoWindow({ content: contentString });
                             google.maps.event.addListener(marker, 'click', function() {
                                         infoWindow.open(map, marker);
                                       });
+                            markerArr.push(infoWindow);
+                            markerArr.push(marker);
                           }
                       });
           }

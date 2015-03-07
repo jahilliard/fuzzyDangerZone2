@@ -15,14 +15,28 @@ exports.storePin = function(req, res){
                    res.send(currpin);
                   });
         } else {
-          myMongo.remove('pins', {'user_id' : UseId}, function(didSucceed){
-                console.log(didSucceed);
+          myMongo.remove('pins', {'user_id' : UseId}, 
+            function(didSucceed){
                   myMongo.insert('pins', pin, function(currpin){
                    res.send(currpin);
                   });
           });
         }
       });
+    });
+}
+
+exports.addPersonToPin = function(req, res){
+  myMongo.findOne('pins', {'user_id': req.user.fbId},
+  function(pin){
+    var tempArrFL = model.user_id;
+    tempArrFL.push(req.params.toAddUseId.toString());
+    mongoID = ObjectID.ObjectId(pin._id);
+    myMongo.update('pins', { 'find' : { '_id' : mongoID},
+                    'update' : { '$set' : {"user_id": tempArrFL}}},
+        function(didSucceed){
+            res.send(didSucceed);
+          });
     });
 }
 
@@ -132,7 +146,6 @@ exports.clearPinsInDb = function(){
           var newTime = currDate.getTime() + (todelete.timeFor * 3600000) + (todelete.whatTime * 3600000);
           if (newTime < timeNow) {
             myMongo.remove("pins", { "_id" : mongoId }, function (docs){
-              console.log(docs);
             });
           };
         };

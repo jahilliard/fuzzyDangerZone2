@@ -16,8 +16,11 @@ console.log("IP address: " + ipaddress);
 console.log("Port: " + port);
 require('superagent-oauth')(superagent);
 
-var FACEBOOK_APP_ID = "1545248059049486";
-var FACEBOOK_APP_SECRET = "f36058491af6aa50543fce7f30be3e2d";
+// TEST APP CREDNTIALS 
+var FACEBOOK_APP_ID = "1562892043951754";
+var FACEBOOK_APP_SECRET = "d5f66b5ea18bbce50a65dcf1e6bae4f4";
+//change to deploy 
+
 var CALLBACK_URL = "http://localhost:50000/auth/facebook/callback";
 var PROFILE_FIELDS = ['id', 'name', 'gender', 'displayName','photos','profileUrl'];
 var SUCCESS_LOGIN_PATH = '/home';
@@ -56,7 +59,6 @@ passport.use(new FacebookStrategy({
       profile['accessToken'] = accessToken;
       routes.findOrCreate(profile, accessToken, 
         function(currUser, accessToken){
-          console.log("THIS WAS STORED " + JSON.stringify(currUser));
       });
       return done(null, profile);
     });
@@ -94,6 +96,8 @@ app.get(SUCCESS_LOGIN_PATH, ensureAuthenticated, function(req,res,next){
 });
 
 app.post('/makePin/:pinLat/:pinLong/:user_id', routes.storePin);
+
+// app.post('/addPersonToPin/:pinUseId/:toAddUseId', routes.addPersonToPin);
 
 app.put('/addFriendsList/:profileId/:toAddId', routes.addToFriendList);
 
